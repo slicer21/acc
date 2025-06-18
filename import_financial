@@ -1,0 +1,319 @@
+<?php
+
+require 'map_accounts.php';
+require 'import_financials.php';
+require 'vendor/autoload.php'; // Add PhpSpreadsheet autoloader
+
+use PhpOffice\PhpSpreadsheet\IOFactory; // Add IOFactory import
+
+// Override the income processing loop to include account mapping
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
+    try {
+        $file = $_FILES['file']['tmp_name'];
+        $company_id = (int)$_POST['company_id'];
+
+        if ($company_id <= 0) {
+            throw new Exception("Invalid company ID: $company_id");
+        }
+
+        $file_type = strtolower(pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION));
+        if (!in_array($file_type, ['xlsx', 'xls', 'csv'])) {
+            throw new Exception("Invalid file type. Only Excel files (XLSX, XLS, CSV) are allowed.");
+        }
+
+        $spreadsheet = IOFactory::load($file);
+
+        file_put_contents('import_debug.log', "Uploaded file for company $company_id: " . $_FILES['file']['name'] . ", Size: " . $_FILES['file']['size'] . "\n", FILE_APPEND);
+
+        $sheetNames = $spreadsheet->getSheetNames();
+        file_put_contents('import_debug.log', "Detected sheet names for company $company_id: " . print_r($sheetNames, true) . "\n", FILE_APPEND);
+
+        $incomeSheetNames = ['income', 'receipts', 'donations', 'revenue', 'income data', 'donation', 'income sheet', 'sales'];
+        $expenseSheetNames = ['expenses', 'payments', 'bills', 'expense', 'expenditures', 'expense sheet'];
+
+        $lowerSheetNames = array_map('strtolower', $sheetNames);
+        $lowerIncomeSheetNames = array_map('strtolower', $incomeSheetNames);
+        $lowerExpenseSheetNames = array_map('strtolower', $expenseSheetNames);
+
+        if (!array_intersect($lowerSheetNames, $lowerIncomeSheetNames) && !array_intersect($lowerSheetNames, $lowerExpenseSheetNames)) {
+            throw new Exception("No valid sheets found for company $company_id. Found sheets: " . implode(", ", $sheetNames) .
+                               ". Expected Income sheets: " . implode(", ", $incomeSheetNames) .
+                               "; Expected Expenses sheets: " . implode(", ", $expenseSheetNames));
+        }
+
+        checkExpensesTableSchema($conn);
+
+        $conn->begin_transaction();
+
+        $results = [
+            'income' => ['imported' => 0, 'skipped' => 0, 'errors' => []],
+            'expenses' => ['imported' => 0, 'skipped' => 0, 'errors' => []]
+        ];
+
+        // Process Income Sheet
+        foreach ($sheetNames as $sheetName) {
+            if (in_array(strtolower($sheetName), $lowerIncomeSheetNames)) {
+                $worksheet = $spreadsheet->getSheetByName($sheetName);
+                $rows = $worksheet->toArray(null, true, true, true);
+
+                $debugRows = array_slice($rows, 0, 3);
+                file_put_contents('import_debug.log', "Income sheet ($sheetName) for company $company_id first 3 rows: " . print_r($debugRows, true) . "\n", FILE_APPEND);
+
+                $header = array_shift($rows);
+                file_put_contents('import_debug.log', "Income sheet ($sheetName) for company $company_id first header attempt: " . print_r($header, true) . "\n", FILE_APPEND);
+
+                $attempt = 1;
+                while ($header && !isHeaderRow($header) && $attempt <= 2 && !empty($rows)) {
+                    $header = array_shift($rows);
+                    $attempt++;
+                    file_put_contents('import_debug.log', "Income sheet ($sheetName) for company $company_id header attempt $attempt: " . print_r($header, true) . "\n", FILE_APPEND);
+                }
+
+                if (!isHeaderRow($header)) {
+                    throw new Exception("Income sheet ($sheetName) for company $company_id: Could not identify header row after $attempt attempts.");
+                }
+
+                $firstDataRow = !empty($rows) ? array_shift($rows) : null;
+                if ($firstDataRow) {
+                    array_unshift($rows, $firstDataRow);
+                }
+
+                $dateCol = findColumnIndex($header, 'date', ['transaction date', 'date of transaction', 'entry date']);
+                $invoiceCol = findColumnIndex($header, 'invoice no', ['invoice #', 'receipt no', 'invoice number', 'invoice no.', 'receipt']);
+                $payorCol = findColumnIndex($header, 'name', ['payor', 'donor', 'contributor', 'donor name', 'payor name', 'payor']);
+                $subCategoryCol = findColumnIndex($header, 'sub category', ['subcategory', 'type', 'sub category name', 'category type']);
+                $amountCol = findColumnIndex($header, 'amount', ['total', 'value', 'donation amount', 'income', 'donation', 'contribution', 'funds', 'total amount', 'transaction amount', 'payment'], $firstDataRow);
+                $notesCol = findColumnIndex($header, 'notes', ['description', 'remarks', 'comments', 'memo']);
+
+                if ($amountCol === false) {
+                    $headerList = implode(", ", array_filter($header, fn($h) => $h !== null && $h !== ''));
+                    throw new Exception("Income sheet ($sheetName) for company $company_id: Could not find or infer amount column. Detected headers: $headerList");
+                }
+
+                $emptyRowCount = 0;
+                $maxEmptyRows = 5;
+                foreach ($rows as $row_num => $row) {
+                    try {
+                        $isEmpty = empty(array_filter($row, function($value) {
+                            return $value !== null && $value !== '' && $value !== ' ';
+                        }));
+
+                        if ($isEmpty) {
+                            $emptyRowCount++;
+                            if ($emptyRowCount >= $maxEmptyRows) {
+                                file_put_contents('import_debug.log', "Stopped processing Income sheet at row $row_num for company $company_id due to $maxEmptyRows consecutive empty rows\n", FILE_APPEND);
+                                break;
+                            }
+                            continue;
+                        } else {
+                            $emptyRowCount = 0;
+                        }
+
+                        $date = $dateCol !== false ? normalizeDate($row[$dateCol] ?? '', $row_num + 2) : date('Y-m-d');
+                        $invoice_no = $invoiceCol !== false ? substr(trim($row[$invoiceCol] ?? ''), 0, 100) : '';
+                        $payor = $payorCol !== false ? substr(trim($row[$payorCol] ?? ''), 0, 255) : '';
+                        $donor_name = $payor;
+                        $sub_category_raw = $subCategoryCol !== false ? substr(trim($row[$subCategoryCol] ?? 'Other'), 0, 100) : 'Other';
+
+                        $amount = parseAmount($row[$amountCol], $row_num + 2);
+                        $notes = $notesCol !== false ? substr(trim($row[$notesCol] ?? ''), 0, 255) : '';
+
+                        // Map the account
+                        $mapped_account = mapAccount($sub_category_raw, 'Revenue', $sub_category_raw);
+                        $sub_category = $mapped_account['sub_category'];
+                        $category = $mapped_account['category'];
+                        $account_code = $mapped_account['account_code'];
+
+                        $payment_method = 'Cash';
+                        $stmt = $conn->prepare("INSERT INTO income
+                                              (date, donor_name, invoice_no, payor, sub_category, amount,
+                                              payment_method, notes, company_id, category)
+                                              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                        $stmt->bind_param("sssssdssis", $date, $donor_name, $invoice_no, $payor, $sub_category, $amount, $payment_method, $notes, $company_id, $category);
+
+                        if ($stmt->execute()) {
+                            setupDefaultAccounts($company_id);
+
+                            $entries = [
+                                ['account_code' => '1000', 'amount' => $amount, 'entry_type' => 'debit'],
+                                ['account_code' => $account_code, 'amount' => $amount, 'entry_type' => 'credit']
+                            ];
+
+                            recordTransaction(
+                                $date,
+                                "Income: $sub_category" . ($payor ? " from $payor" : ""),
+                                $entries,
+                                $invoice_no,
+                                $company_id
+                            );
+
+                            $results['income']['imported']++;
+                        } else {
+                            throw new Exception("Database error: " . $conn->error);
+                        }
+                    } catch (Exception $e) {
+                        $results['income']['skipped']++;
+                        $results['income']['errors'][] = $e->getMessage();
+                        file_put_contents('import_errors.log', "Income row $row_num for company $company_id: " . $e->getMessage() . ", Row data: " . print_r($row, true) . "\n", FILE_APPEND);
+                        continue;
+                    }
+                }
+                break;
+            }
+        }
+
+        // Process Expenses Sheet
+        foreach ($sheetNames as $sheetName) {
+            if (in_array(strtolower($sheetName), $lowerExpenseSheetNames)) {
+                $worksheet = $spreadsheet->getSheetByName($sheetName);
+                $rows = $worksheet->toArray(null, true, true, true);
+
+                $debugRows = array_slice($rows, 0, 3);
+                file_put_contents('import_debug.log', "Expenses sheet ($sheetName) for company $company_id first 3 rows: " . print_r($debugRows, true) . "\n", FILE_APPEND);
+
+                $header = array_shift($rows);
+                file_put_contents('import_debug.log', "Expenses sheet ($sheetName) for company $company_id first header attempt: " . print_r($header, true) . "\n", FILE_APPEND);
+
+                $attempt = 1;
+                while ($header && !isHeaderRow($header) && $attempt <= 2 && !empty($rows)) {
+                    $header = array_shift($rows);
+                    $attempt++;
+                    file_put_contents('import_debug.log', "Expenses sheet ($sheetName) for company $company_id header attempt $attempt: " . print_r($header, true) . "\n", FILE_APPEND);
+                }
+
+                if (!isHeaderRow($header)) {
+                    throw new Exception("Expenses sheet ($sheetName) for company $company_id: Could not identify header row after $attempt attempts.");
+                }
+
+                $firstDataRow = !empty($rows) ? array_shift($rows) : null;
+                if ($firstDataRow) {
+                    array_unshift($rows, $firstDataRow);
+                }
+
+                $dateCol = findColumnIndex($header, 'date', ['transaction date', 'date of transaction', 'entry date']);
+                $receiptCol = findColumnIndex($header, 'receipt no', ['receipt #', 'invoice no', 'receipt number', 'invoice', 'receipt no']);
+                $vendorCol = findColumnIndex($header, 'vendor', ['vendor name', 'payee', 'recipient', 'paid to']);
+                $supplierCol = findColumnIndex($header, 'supplier', ['vendor', 'payee', 'vendor name', 'recipient', 'paid to']);
+                $supplierTinCol = findColumnIndex($header, 'supplier tin', ['tin', 'supplier tin', 'tin no']);
+                $categoryCol = findColumnIndex($header, 'category', ['expense type', 'expense category', 'category', 'main account']);
+                $subCategoryCol = findColumnIndex($header, 'sub category', ['subcategory', 'type', 'sub category name', 'category type', 'mode', 'description']);
+                $amountCol = findColumnIndex($header, 'amount', ['total', 'value', 'expense amount', 'cost', 'price', 'bill', 'invoice amount', 'payment'], $firstDataRow);
+                $explanationCol = findColumnIndex($header, 'explanation', ['purpose', 'details']);
+                $notesCol = findColumnIndex($header, 'notes', ['description', 'remarks', 'comments', 'memo', 'remarks']);
+
+                if ($amountCol === false) {
+                    $headerList = implode(", ", array_filter($header, fn($h) => $h !== null && $h !== ''));
+                    throw new Exception("Expenses sheet ($sheetName) for company $company_id: Could not find or infer amount column. Detected headers: $headerList");
+                }
+
+                $emptyRowCount = 0;
+                $maxEmptyRows = 5;
+                foreach ($rows as $row_num => $row) {
+                    try {
+                        $isEmpty = empty(array_filter($row, function($value) {
+                            return $value !== null && $value !== '' && $value !== ' ';
+                        }));
+
+                        if ($isEmpty) {
+                            $emptyRowCount++;
+                            if ($emptyRowCount >= $maxEmptyRows) {
+                                file_put_contents('import_debug.log', "Stopped processing Expenses sheet at row $row_num for company $company_id due to $maxEmptyRows consecutive empty rows\n", FILE_APPEND);
+                                break;
+                            }
+                            continue;
+                        } else {
+                            $emptyRowCount = 0;
+                        }
+
+                        $date = $dateCol !== false ? normalizeDate($row[$dateCol] ?? '', $row_num + 2) : date('Y-m-d');
+                        $receipt_no = $receiptCol !== false ? substr(trim($row[$receiptCol] ?? ''), 0, 100) : '';
+                        $vendor_name = $vendorCol !== false ? substr(trim($row[$vendorCol] ?? ''), 0, 255) : '';
+                        $explanation = $explanationCol !== false ? substr(trim($row[$explanationCol] ?? ''), 0, 65535) : '';
+                        $category_raw = $categoryCol !== false ? trim($row[$categoryCol] ?? 'General') : 'General';
+                        $sub_category_raw = $subCategoryCol !== false ? trim($row[$subCategoryCol] ?? '') : '';
+                        $amount = parseAmount($row[$amountCol], $row_num + 2);
+                        $notes = $notesCol !== false ? substr(trim($row[$notesCol] ?? ''), 0, 65535) : '';
+                        $payment_method = 'Cash';
+                        $supplier = $supplierCol !== false ? substr(trim($row[$supplierCol] ?? ''), 0, 255) : '';
+                        $supplier_tin = $supplierTinCol !== false ? ($row[$supplierTinCol] !== null && trim($row[$supplierTinCol]) !== '' ? substr(trim($row[$supplierTinCol]), 0, 100) : '') : '';
+
+                        // Map the account
+                        $mapped_account = mapAccount($category_raw, $category_raw, $sub_category_raw);
+                        $category = $mapped_account['category'];
+                        $sub_category = $mapped_account['sub_category'];
+                        $expense_account = $mapped_account['account_code'];
+
+                        $stmt = $conn->prepare("INSERT INTO expenses
+                                              (date, receipt_no, vendor_name, explanation, category, sub_category, amount,
+                                              payment_method, notes, company_id, supplier, supplier_tin)
+                                              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                        $stmt->bind_param("ssssssdssssi", $date, $receipt_no, $vendor_name, $explanation, $category, $sub_category, $amount, $payment_method, $notes, $company_id, $supplier, $supplier_tin);
+
+                        if ($stmt->execute()) {
+                            setupDefaultAccounts($company_id);
+
+                            $entries = [
+                                ['account_code' => $expense_account, 'amount' => $amount, 'entry_type' => 'debit'],
+                                ['account_code' => '1000', 'amount' => $amount, 'entry_type' => 'credit']
+                            ];
+
+                            recordTransaction(
+                                $date,
+                                "Expense: $category - $sub_category" . ($vendor_name ? " to $vendor_name" : ""),
+                                $entries,
+                                $receipt_no,
+                                $company_id
+                            );
+
+                            $results['expenses']['imported']++;
+                        } else {
+                            throw new Exception("Database error: " . $conn->error);
+                        }
+                    } catch (Exception $e) {
+                        $results['expenses']['skipped']++;
+                        $results['expenses']['errors'][] = $e->getMessage();
+                        file_put_contents('import_errors.log', "Expenses row $row_num for company $company_id: " . $e->getMessage() . ", Row data: " . print_r($row, true) . "\n", FILE_APPEND);
+                        continue;
+                    }
+                }
+                break;
+            }
+        }
+
+        $conn->commit();
+
+        $message = "Import completed for company $company_id. ";
+        $message .= "Income: {$results['income']['imported']} imported, {$results['income']['skipped']} skipped. ";
+        $message .= "Expenses: {$results['expenses']['imported']} imported, {$results['expenses']['skipped']} skipped.";
+
+        $_SESSION['import_result'] = [
+            'success' => true,
+            'message' => $message,
+            'details' => $results
+        ];
+
+        if (!empty($results['income']['errors']) || !empty($results['expenses']['errors'])) {
+            $_SESSION['import_errors'] = array_merge(
+                array_slice($results['income']['errors'], 0, 10),
+                array_slice($results['expenses']['errors'], 0, 10)
+            );
+        }
+
+        header("Location: ../dashboard.php?company_id=$company_id&from_import=1");
+        exit;
+    } catch (Exception $e) {
+        $conn->rollback();
+        $_SESSION['import_result'] = [
+            'success' => false,
+            'message' => "Import failed for company $company_id: " . $e->getMessage()
+        ];
+        file_put_contents('import_errors.log', "Import failed for company $company_id: " . $e->getMessage() . "\n", FILE_APPEND);
+        header("Location: ../dashboard.php");
+        exit;
+    }
+}
+
+header("Location: ../dashboard.php");
+exit;
+
+?>
