@@ -285,13 +285,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
                 }
 
                 $dateCol = findColumnIndex($header, 'date', ['transaction date', 'date of transaction', 'entry date']);
-                $invoiceCol = findColumnIndex($header, 'invoice no', ['invoice #', 'receipt no', 'invoice number', 'invoice no.', 'receipt']);
+                $invoiceCol = findColumnIndex($header, 'invoice no', ['invoice #', 'invoice number', 'invoice no.', 'receipt']);
                 $payorCol = findColumnIndex($header, 'name', ['payor', 'donor', 'contributor', 'donor name', 'payor name', 'payor']);
                 $subCategoryCol = findColumnIndex($header, 'sub category', ['subcategory', 'type', 'sub category name', 'category']);
                 $amountCol = findColumnIndex($header, 'amount', ['total', 'value', 'donation amount', 'income', 'donation', 'contribution', 'funds', 'total amount', 'transaction amount', 'payment'], $firstDataRow);
                 $notesCol = findColumnIndex($header, 'notes', ['description', 'remarks', 'comments', 'memo']);
                 $paymentMethodCol = findColumnIndex($header, 'payment method', ['payment', 'method', 'payment type']);
-                $outputVatCol = findColumnIndex($header, 'output_vat', ['output vat', 'vat output', 'output vat 12%']);
+                $outputVatCol = findColumnIndex($header, 'output_vat', ['output vat', 'vat output', 'output vat 12%', 'vat', 'vat 12%', 'output tax', 'sales tax'], $firstDataRow);
 
                 if ($amountCol === false) {
                     $headerList = implode(", ", array_filter($header, fn($h) => $h !== null && $h !== ''));
@@ -328,7 +328,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
                         $amount = parseAmount($row[$amountCol], $row_num + 2);
                         $notes = $notesCol !== false ? substr(trim($row[$notesCol] ?? ''), 0, 255) : '';
                         $payment_method = $paymentMethodCol !== false ? substr(trim($row[$paymentMethodCol] ?? 'Cash'), 0, 50) : 'Cash';
-                        $output_vat = $outputVatCol !== false ? (is_numeric(trim($row[$outputVatCol] ?? '')) ? (float)trim($row[$outputVatCol]) : 0) : 0;
+                        
+                        // Improved Output VAT handling
+                        if ($outputVatCol === false) {
+                            file_put_contents('import_debug.log', "Income sheet ($sheetName) for company $company_id: Could not find output_vat column. Calculating 12% of amount.\n", FILE_APPEND);
+                            $output_vat = round($amount * 0.12, 2);
+                        } else {
+                            $output_vat_raw = trim($row[$outputVatCol] ?? '');
+                            
+                            if (is_numeric($output_vat_raw)) {
+                                $output_vat = (float)$output_vat_raw;
+                            } elseif (strpos($output_vat_raw, '%') !== false) {
+                                $percent = (float)str_replace('%', '', $output_vat_raw);
+                                $output_vat = round($amount * ($percent / 100), 2);
+                            } elseif ($output_vat_raw === '' || $output_vat_raw === '-') {
+                                $output_vat = round($amount * 0.12, 2);
+                            } else {
+                                $output_vat = round($amount * 0.12, 2);
+                            }
+                            
+                            $output_vat = max(0, $output_vat);
+                            
+                            file_put_contents('import_debug.log', "Income sheet ($sheetName) row $row_num: Detected output_vat '$output_vat_raw' parsed as $output_vat\n", FILE_APPEND);
+                        }
+                        
+                        // Validate VAT doesn't exceed amount
+                        if ($output_vat > 0 && $output_vat >= $amount) {
+                            throw new Exception("Row $row_num: Output VAT ($output_vat) cannot be greater than or equal to amount ($amount)");
+                        }
 
                         $stmt = $conn->prepare("INSERT INTO income
                                               (date, donor_name, invoice_no, payor, sub_category, amount,
@@ -361,12 +388,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
                                     ['account_code' => $liability_account, 'amount' => $amount, 'entry_type' => 'credit']
                                 ];
                             } else {
-                                $base_amount = $amount - $output_vat; // Use provided output_vat directly
-                                $entries = [
-                                    ['account_code' => '1000', 'amount' => $amount, 'entry_type' => 'debit'], // Cash
-                                    ['account_code' => $account_code, 'amount' => $base_amount, 'entry_type' => 'credit'], // Revenue
-                                    ['account_code' => '2400', 'amount' => $output_vat, 'entry_type' => 'credit'] // Output VAT
-                                ];
+                                $base_amount = $amount - $output_vat;
+                                if ($output_vat > 0) {
+                                    $entries = [
+                                        ['account_code' => '1000', 'amount' => $amount, 'entry_type' => 'debit'], // Cash
+                                        ['account_code' => $account_code, 'amount' => $base_amount, 'entry_type' => 'credit'], // Revenue
+                                        ['account_code' => '2400', 'amount' => $output_vat, 'entry_type' => 'credit'] // Output VAT
+                                    ];
+                                } else {
+                                    $entries = [
+                                        ['account_code' => '1000', 'amount' => $amount, 'entry_type' => 'debit'], // Cash
+                                        ['account_code' => $account_code, 'amount' => $amount, 'entry_type' => 'credit'] // Revenue
+                                    ];
+                                }
                             }
 
                             recordTransaction(
@@ -392,7 +426,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
             }
         }
 
-        // Process Expenses Sheet
+        // Process Expenses Sheet (unchanged from original)
         foreach ($sheetNames as $sheetName) {
             if (in_array(strtolower($sheetName), $lowerExpenseSheetNames)) {
                 $worksheet = $spreadsheet->getSheetByName($sheetName);

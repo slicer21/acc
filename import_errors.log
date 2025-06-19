@@ -55397,3 +55397,59 @@ Income row 85 for company 14: Row 87: Date value is empty, Row data: Array
     [J] => 
 )
 
+Income row 14 for company 14: Row 16: Unrecognized date format '1-17-25', Row data: Array
+(
+    [A] => 1-17-25
+    [B] => DR 2707
+    [C] => Marauders Cafe
+    [D] => 
+    [E] => 1,450.00
+    [F] => 174
+    [G] => 
+    [H] => Sales
+    [I] => CASH - DR
+    [J] => 
+)
+
+Income row 15 for company 14: Row 17: Unrecognized date format '1-17-25', Row data: Array
+(
+    [A] => 1-17-25
+    [B] => DR 2708
+    [C] => The Gallery
+    [D] => 
+    [E] => 2,400.00
+    [F] => 288
+    [G] => 
+    [H] => Sales
+    [I] => CASH - DR
+    [J] => 
+)
+
+Income row 16 for company 14: Row 18: Unrecognized date format '1-17-25', Row data: Array
+(
+    [A] => 1-17-25
+    [B] => DR 2709
+    [C] => RDex
+    [D] => 
+    [E] => 5,917.00
+    [F] => 710.04
+    [G] => 
+    [H] => Sales
+    [I] => CASH - Walk in
+    [J] => 
+)
+
+Income row 85 for company 14: Row 87: Date value is empty, Row data: Array
+(
+    [A] => 
+    [B] => 
+    [C] => 
+    [D] => 
+    [E] => 451,628.80
+    [F] => 50,908.96
+    [G] => 
+    [H] => 
+    [I] => 
+    [J] => 
+)
+
