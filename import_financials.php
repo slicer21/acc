@@ -426,7 +426,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
             }
         }
 
-        // Process Expenses Sheet (unchanged from original)
+        // Process Expenses Sheet
         foreach ($sheetNames as $sheetName) {
             if (in_array(strtolower($sheetName), $lowerExpenseSheetNames)) {
                 $worksheet = $spreadsheet->getSheetByName($sheetName);
@@ -464,7 +464,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
                 $amountCol = findColumnIndex($header, 'amount', ['total', 'value', 'expense amount', 'cost', 'price', 'bill', 'invoice amount', 'payment'], $firstDataRow);
                 $explanationCol = findColumnIndex($header, 'explanation', ['purpose', 'details']);
                 $notesCol = findColumnIndex($header, 'notes', ['description', 'remarks', 'comments', 'memo']);
-                $inputVatCol = findColumnIndex($header, 'input_vat', ['input vat', 'vat input', 'input vat 12%']);
+                $inputVatCol = findColumnIndex($header, 'input_vat', ['input vat', 'vat input', 'input_vat', 'Input VAT', 'VAT Input', 'input vat 12%']);
 
                 if ($amountCol === false) {
                     $headerList = implode(", ", array_filter($header, fn($h) => $h !== null && $h !== ''));
@@ -501,7 +501,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
                         $payment_method = 'Cash';
                         $supplier = $supplierCol !== false ? substr(trim($row[$supplierCol] ?? ''), 0, 255) : '';
                         $supplier_tin = $supplierTinCol !== false ? ($row[$supplierTinCol] !== null && trim($row[$supplierTinCol]) !== '' ? substr(trim($row[$supplierTinCol]), 0, 100) : '') : '';
+
+                        // Improved Input VAT handling
+                        $inputVatCol = findColumnIndex($header, 'input_vat', ['input vat', 'vat input', 'input_vat', 'Input VAT', 'VAT Input', 'input vat 12%']);
                         $input_vat = $inputVatCol !== false ? (is_numeric(trim($row[$inputVatCol] ?? '')) ? (float)trim($row[$inputVatCol]) : 0) : 0;
+
+                        // If input_vat is still 0 and the column exists, attempt to parse it as a formatted number
+                        if ($inputVatCol !== false && $input_vat == 0) {
+                            $vatValue = trim($row[$inputVatCol] ?? '');
+                            if (!empty($vatValue) && $vatValue !== '-') {
+                                $vatValue = preg_replace('/[^\d\.,-]/', '', $vatValue); // Remove non-numeric characters except decimal and comma
+                                $vatValue = str_replace(',', '', $vatValue); // Remove commas
+                                $input_vat = is_numeric($vatValue) ? (float)$vatValue : 0;
+                            }
+                        }
 
                         $category = $category_raw;
                         if (stripos($category_raw, 'sales') !== false) {

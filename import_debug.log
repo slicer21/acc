@@ -27773,3 +27773,1442 @@ Failed to find column 'explanation' (alternatives: purpose, details)
 Found column 'notes' at index J (header: Remarks)
 Failed to find column 'input_vat' (alternatives: input vat, vat input, input vat 12%)
 Stopped processing Expenses sheet at row 101 for company 14 due to 5 consecutive empty rows
+Uploaded file for company 14: Jehu 2025 Sales _ Expenses (3).xlsx, Size: 356167
+Detected sheet names for company 14: Array
+(
+    [0] => Income
+    [1] => Expenses
+    [2] => Sales
+    [3] => Purchases
+    [4] => Sheet1
+)
+
+Income sheet (Income) for company 14 first 3 rows: Array
+(
+    [0] => Array
+        (
+            [A] => Date
+            [B] => Invoice No.
+            [C] => Payee (Name of Buyer)
+            [D] => TIN #
+            [E] => Amount
+            [F] => Main Category
+            [G] => Sub Category
+            [H] => Output VAT 
+            [I] => 2307 (EWT if there is)
+            [J] => Category
+            [K] => MODE
+            [L] => REMARKS
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+    [1] => Array
+        (
+            [A] => 07-Jan-25
+            [B] => DR 2694
+            [C] => Moch
+            [D] => 
+            [E] =>   8,602.50 
+            [F] => Revenue
+            [G] => Sales
+            [H] =>   1,032.30 
+            [I] => 
+            [J] => Receipts
+            [K] => CASH - DR
+            [L] => 
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+    [2] => Array
+        (
+            [A] => 07-Jan-25
+            [B] => DR 2695
+            [C] => Jsloft
+            [D] => 
+            [E] =>   4,900.00 
+            [F] => Revenue
+            [G] => Sales
+            [H] =>   588.00 
+            [I] => 
+            [J] => Receipts
+            [K] => CASH - DR
+            [L] => 
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+)
+
+Income sheet (Income) for company 14 first header attempt: Array
+(
+    [A] => Date
+    [B] => Invoice No.
+    [C] => Payee (Name of Buyer)
+    [D] => TIN #
+    [E] => Amount
+    [F] => Main Category
+    [G] => Sub Category
+    [H] => Output VAT 
+    [I] => 2307 (EWT if there is)
+    [J] => Category
+    [K] => MODE
+    [L] => REMARKS
+    [M] => 
+    [N] => 
+    [O] => 
+    [P] => 
+    [Q] => 
+    [R] => 
+    [S] => 
+    [T] => 
+    [U] => 
+    [V] => 
+    [W] => 
+    [X] => 
+    [Y] => 
+    [Z] => 
+    [AA] => 
+    [AB] => 
+)
+
+Found column 'date' at index A (header: Date)
+Found column 'invoice no' at index B (header: Invoice No.)
+Failed to find column 'name' (alternatives: payor, donor, contributor, donor name, payor name, payor)
+Found column 'sub category' at index G (header: Sub Category)
+Found column 'amount' at index E (header: Amount)
+Found column 'notes' at index L (header: REMARKS)
+Failed to find column 'payment method' (alternatives: payment, method, payment type)
+Found column 'output_vat' at index H (header: Output VAT )
+Income sheet (Income) row 0: Detected output_vat '1,032.30' parsed as 1032.3
+Income sheet (Income) row 1: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 2: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 3: Detected output_vat '790.20' parsed as 790.2
+Income sheet (Income) row 4: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 5: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 6: Detected output_vat '653.88' parsed as 653.88
+Income sheet (Income) row 7: Detected output_vat '1,356.00' parsed as 1356
+Income sheet (Income) row 8: Detected output_vat '265.05' parsed as 265.05
+Income sheet (Income) row 9: Detected output_vat '1,493.40' parsed as 1493.4
+Income sheet (Income) row 10: Detected output_vat '789.00' parsed as 789
+Income sheet (Income) row 11: Detected output_vat '1,443.24' parsed as 1443.24
+Income sheet (Income) row 12: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 13: Detected output_vat '282.00' parsed as 282
+Income sheet (Income) row 14: Detected output_vat '174.00' parsed as 174
+Income sheet (Income) row 15: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 16: Detected output_vat '710.04' parsed as 710.04
+Income sheet (Income) row 17: Detected output_vat '186.00' parsed as 186
+Income sheet (Income) row 18: Detected output_vat '140.40' parsed as 140.4
+Income sheet (Income) row 19: Detected output_vat '404.40' parsed as 404.4
+Income sheet (Income) row 20: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 21: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 22: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 23: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 24: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 25: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 26: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 27: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 28: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 29: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 30: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 31: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 32: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 33: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 34: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 35: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 36: Detected output_vat '131.40' parsed as 131.4
+Income sheet (Income) row 37: Detected output_vat '1,607.40' parsed as 1607.4
+Income sheet (Income) row 38: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 39: Detected output_vat '540.91' parsed as 540.91
+Income sheet (Income) row 40: Detected output_vat '539.14' parsed as 539.14
+Income sheet (Income) row 41: Detected output_vat '540.00' parsed as 540
+Income sheet (Income) row 42: Detected output_vat '991.80' parsed as 991.8
+Income sheet (Income) row 43: Detected output_vat '495.00' parsed as 495
+Income sheet (Income) row 44: Detected output_vat '159.24' parsed as 159.24
+Income sheet (Income) row 45: Detected output_vat '1,848.00' parsed as 1848
+Income sheet (Income) row 46: Detected output_vat '836.50' parsed as 836.5
+Income sheet (Income) row 47: Detected output_vat '576.00' parsed as 576
+Income sheet (Income) row 48: Detected output_vat '170.54' parsed as 170.54
+Income sheet (Income) row 49: Detected output_vat '1,097.88' parsed as 1097.88
+Income sheet (Income) row 50: Detected output_vat '546.00' parsed as 546
+Income sheet (Income) row 51: Detected output_vat '462.00' parsed as 462
+Income sheet (Income) row 52: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 53: Detected output_vat '427.32' parsed as 427.32
+Income sheet (Income) row 54: Detected output_vat '143.76' parsed as 143.76
+Income sheet (Income) row 55: Detected output_vat '203.40' parsed as 203.4
+Income sheet (Income) row 56: Detected output_vat '577.80' parsed as 577.8
+Income sheet (Income) row 57: Detected output_vat '1,039.50' parsed as 1039.5
+Income sheet (Income) row 58: Detected output_vat '645.84' parsed as 645.84
+Income sheet (Income) row 59: Detected output_vat '348.00' parsed as 348
+Income sheet (Income) row 60: Detected output_vat '540.00' parsed as 540
+Income sheet (Income) row 61: Detected output_vat '172.80' parsed as 172.8
+Income sheet (Income) row 62: Detected output_vat '2,428.20' parsed as 2428.2
+Income sheet (Income) row 63: Detected output_vat '546.00' parsed as 546
+Income sheet (Income) row 64: Detected output_vat '576.00' parsed as 576
+Income sheet (Income) row 65: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 66: Detected output_vat '495.00' parsed as 495
+Income sheet (Income) row 67: Detected output_vat '795.60' parsed as 795.6
+Income sheet (Income) row 68: Detected output_vat '61.32' parsed as 61.32
+Income sheet (Income) row 69: Detected output_vat '576.00' parsed as 576
+Income sheet (Income) row 70: Detected output_vat '684.00' parsed as 684
+Income sheet (Income) row 71: Detected output_vat '950.04' parsed as 950.04
+Income sheet (Income) row 72: Detected output_vat '1,120.50' parsed as 1120.5
+Income sheet (Income) row 73: Detected output_vat '380.02' parsed as 380.02
+Income sheet (Income) row 74: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 75: Detected output_vat '251.40' parsed as 251.4
+Income sheet (Income) row 76: Detected output_vat '2,401.98' parsed as 2401.98
+Income sheet (Income) row 77: Detected output_vat '540.00' parsed as 540
+Income sheet (Income) row 78: Detected output_vat '114.00' parsed as 114
+Income sheet (Income) row 79: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 80: Detected output_vat '261.60' parsed as 261.6
+Income sheet (Income) row 81: Detected output_vat '114.00' parsed as 114
+Income sheet (Income) row 82: Detected output_vat '418.44' parsed as 418.44
+Income sheet (Income) row 83: Detected output_vat '1,717.98' parsed as 1717.98
+Income sheet (Income) row 84: Detected output_vat '661.20' parsed as 661.2
+Income sheet (Income) row 85: Detected output_vat '510.12' parsed as 510.12
+Income sheet (Income) row 86: Detected output_vat '1,578.00' parsed as 1578
+Income sheet (Income) row 87: Detected output_vat '1,064.70' parsed as 1064.7
+Income sheet (Income) row 88: Detected output_vat '6,930.00' parsed as 6930
+Income sheet (Income) row 89: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 90: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 91: Detected output_vat '2,223.00' parsed as 2223
+Income sheet (Income) row 92: Detected output_vat '2,622.60' parsed as 2622.6
+Income sheet (Income) row 93: Detected output_vat '883.18' parsed as 883.18
+Income sheet (Income) row 94: Detected output_vat '1,104.48' parsed as 1104.48
+Income sheet (Income) row 95: Detected output_vat '862.98' parsed as 862.98
+Income sheet (Income) row 96: Detected output_vat '438.00' parsed as 438
+Income sheet (Income) row 97: Detected output_vat '418.44' parsed as 418.44
+Income sheet (Income) row 98: Detected output_vat '24.60' parsed as 24.6
+Income sheet (Income) row 99: Detected output_vat '1,768.80' parsed as 1768.8
+Income sheet (Income) row 100: Detected output_vat '209.81' parsed as 209.81
+Income sheet (Income) row 101: Detected output_vat '750.00' parsed as 750
+Income sheet (Income) row 102: Detected output_vat '524.40' parsed as 524.4
+Income sheet (Income) row 103: Detected output_vat '1,109.22' parsed as 1109.22
+Income sheet (Income) row 104: Detected output_vat '508.20' parsed as 508.2
+Income sheet (Income) row 105: Detected output_vat '1,222.08' parsed as 1222.08
+Income sheet (Income) row 106: Detected output_vat '905.16' parsed as 905.16
+Income sheet (Income) row 107: Detected output_vat '435.00' parsed as 435
+Income sheet (Income) row 108: Detected output_vat '984.67' parsed as 984.67
+Income sheet (Income) row 109: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 110: Detected output_vat '2,017.80' parsed as 2017.8
+Income sheet (Income) row 111: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 112: Detected output_vat '1,155.96' parsed as 1155.96
+Income sheet (Income) row 113: Detected output_vat '411.60' parsed as 411.6
+Income sheet (Income) row 114: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 115: Detected output_vat '2,626.20' parsed as 2626.2
+Income sheet (Income) row 116: Detected output_vat '137.28' parsed as 137.28
+Income sheet (Income) row 117: Detected output_vat '546.00' parsed as 546
+Income sheet (Income) row 118: Detected output_vat '1,063.62' parsed as 1063.62
+Income sheet (Income) row 119: Detected output_vat '3,696.00' parsed as 3696
+Stopped processing Income sheet at row 124 for company 14 due to 5 consecutive empty rows
+Expenses sheet (Expenses) for company 14 first 3 rows: Array
+(
+    [0] => Array
+        (
+            [A] => Date
+            [B] => Receipt #
+            [C] => Supplier
+            [D] => Supplier Tin (Required if VAT)
+            [E] => Particulars (please describe the expense)
+            [F] => Amount
+            [G] => Main Category
+            [H] => Sub Category
+            [I] => Input VAT
+            [J] => Mode
+            [K] => Remarks
+            [L] => 
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+    [1] => Array
+        (
+            [A] => 01-Jan-25
+            [B] => 
+            [C] => Hyundai
+            [D] => 
+            [E] => H100 vehicle
+            [F] => 21,000.00
+            [G] => Expenses
+            [H] => Transportation 
+            [I] =>   2,520.00 
+            [J] => CASH
+            [K] => 
+            [L] => 
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+    [2] => Array
+        (
+            [A] => 02-Jan-25
+            [B] => 
+            [C] => Asialink
+            [D] => 
+            [E] => Car loan
+            [F] => 15,989.00
+            [G] => Expenses
+            [H] => Other Expenses
+            [I] =>   1,918.68 
+            [J] => CASH
+            [K] => 
+            [L] => 
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+)
+
+Expenses sheet (Expenses) for company 14 first header attempt: Array
+(
+    [A] => Date
+    [B] => Receipt #
+    [C] => Supplier
+    [D] => Supplier Tin (Required if VAT)
+    [E] => Particulars (please describe the expense)
+    [F] => Amount
+    [G] => Main Category
+    [H] => Sub Category
+    [I] => Input VAT
+    [J] => Mode
+    [K] => Remarks
+    [L] => 
+    [M] => 
+    [N] => 
+    [O] => 
+    [P] => 
+    [Q] => 
+    [R] => 
+    [S] => 
+    [T] => 
+    [U] => 
+    [V] => 
+    [W] => 
+    [X] => 
+    [Y] => 
+    [Z] => 
+    [AA] => 
+    [AB] => 
+)
+
+Found column 'date' at index A (header: Date)
+Found column 'receipt no' at index B (header: Receipt #)
+Failed to find column 'vendor' (alternatives: vendor name, payee, recipient, paid to)
+Found column 'supplier' at index C (header: Supplier)
+Failed to find column 'supplier tin' (alternatives: tin, supplier tin, tin no, supplier tin (required if vis)
+Failed to find column 'category' (alternatives: expense type, expense category, category, main account)
+Found column 'sub category' at index H (header: Sub Category)
+Found column 'amount' at index F (header: Amount)
+Failed to find column 'explanation' (alternatives: purpose, details, description)
+Found column 'notes' at index K (header: Remarks)
+Found column 'input_vat' at index I (header: Input VAT)
+Expenses sheet (Expenses) row 0: Detected input_vat '2,520.00' parsed as 2520
+Expenses sheet (Expenses) row 1: Detected input_vat '1,918.68' parsed as 1918.68
+Expenses sheet (Expenses) row 2: Detected input_vat '660.00' parsed as 660
+Expenses sheet (Expenses) row 3: Detected input_vat '167.88' parsed as 167.88
+Expenses sheet (Expenses) row 4: Detected input_vat '191.52' parsed as 191.52
+Expenses sheet (Expenses) row 5: Detected input_vat '167.76' parsed as 167.76
+Expenses sheet (Expenses) row 6: Detected input_vat '71.88' parsed as 71.88
+Expenses sheet (Expenses) row 7: Detected input_vat '424.80' parsed as 424.8
+Expenses sheet (Expenses) row 8: Detected input_vat '420.00' parsed as 420
+Expenses sheet (Expenses) row 9: Detected input_vat '816.00' parsed as 816
+Expenses sheet (Expenses) row 10: Detected input_vat '23.40' parsed as 23.4
+Expenses sheet (Expenses) row 11: Detected input_vat '2,514.51' parsed as 2514.51
+Expenses sheet (Expenses) row 12: Detected input_vat '1,709.28' parsed as 1709.28
+Expenses sheet (Expenses) row 13: Detected input_vat '2,863.59' parsed as 2863.59
+Expenses sheet (Expenses) row 14: Detected input_vat '240.00' parsed as 240
+Expenses sheet (Expenses) row 15: Detected input_vat '3,215.52' parsed as 3215.52
+Expenses sheet (Expenses) row 16: Detected input_vat '36.00' parsed as 36
+Expenses sheet (Expenses) row 17: Detected input_vat '276.24' parsed as 276.24
+Expenses sheet (Expenses) row 18: Detected input_vat '59.76' parsed as 59.76
+Expenses sheet (Expenses) row 19: Detected input_vat '5,626.58' parsed as 5626.58
+Expenses sheet (Expenses) row 20: Detected input_vat '9,799.20' parsed as 9799.2
+Expenses sheet (Expenses) row 21: Detected input_vat '60.00' parsed as 60
+Expenses sheet (Expenses) row 22: Detected input_vat '55.20' parsed as 55.2
+Expenses sheet (Expenses) row 23: Detected input_vat '120.00' parsed as 120
+Expenses sheet (Expenses) row 24: Detected input_vat '120.00' parsed as 120
+Expenses sheet (Expenses) row 25: Detected input_vat '6.00' parsed as 6
+Expenses sheet (Expenses) row 26: Detected input_vat '5,681.27' parsed as 5681.27
+Expenses sheet (Expenses) row 27: Detected input_vat '-' parsed as 2520
+Expenses sheet (Expenses) row 28: Detected input_vat '-' parsed as 1918.68
+Expenses sheet (Expenses) row 29: Detected input_vat '-' parsed as 660
+Expenses sheet (Expenses) row 30: Detected input_vat '-' parsed as 179.88
+Expenses sheet (Expenses) row 31: Detected input_vat '-' parsed as 15.6
+Expenses sheet (Expenses) row 32: Detected input_vat '-' parsed as 120
+Expenses sheet (Expenses) row 33: Detected input_vat '-' parsed as 167.76
+Expenses sheet (Expenses) row 34: Detected input_vat '-' parsed as 71.88
+Expenses sheet (Expenses) row 35: Detected input_vat '-' parsed as 420
+Expenses sheet (Expenses) row 36: Detected input_vat '-' parsed as 2514.51
+Expenses sheet (Expenses) row 37: Detected input_vat '-' parsed as 1709.28
+Expenses sheet (Expenses) row 38: Detected input_vat '-' parsed as 2863.59
+Expenses sheet (Expenses) row 39: Detected input_vat '-' parsed as 240
+Expenses sheet (Expenses) row 40: Detected input_vat '-' parsed as 24
+Expenses sheet (Expenses) row 41: Detected input_vat '-' parsed as 5859.6
+Expenses sheet (Expenses) row 42: Detected input_vat '-' parsed as 180
+Expenses sheet (Expenses) row 43: Detected input_vat '-' parsed as 13.2
+Expenses sheet (Expenses) row 44: Detected input_vat '-' parsed as 36.15
+Expenses sheet (Expenses) row 45: Detected input_vat '-' parsed as 276
+Expenses sheet (Expenses) row 46: Detected input_vat '-' parsed as 12822
+Expenses sheet (Expenses) row 47: Detected input_vat '-' parsed as 774
+Expenses sheet (Expenses) row 48: Detected input_vat '-' parsed as 4432.8
+Expenses sheet (Expenses) row 49: Detected input_vat '-' parsed as 8653.58
+Expenses sheet (Expenses) row 50: Detected input_vat '-' parsed as 414
+Expenses sheet (Expenses) row 51: Detected input_vat '-' parsed as 60
+Expenses sheet (Expenses) row 52: Detected input_vat '-' parsed as 2520
+Expenses sheet (Expenses) row 53: Detected input_vat '-' parsed as 1918.68
+Expenses sheet (Expenses) row 54: Detected input_vat '-' parsed as 660
+Expenses sheet (Expenses) row 55: Detected input_vat '-' parsed as 3125.88
+Expenses sheet (Expenses) row 56: Detected input_vat '-' parsed as 179.88
+Expenses sheet (Expenses) row 57: Detected input_vat '-' parsed as 15.6
+Expenses sheet (Expenses) row 58: Detected input_vat '-' parsed as 120
+Expenses sheet (Expenses) row 59: Detected input_vat '-' parsed as 167.76
+Expenses sheet (Expenses) row 60: Detected input_vat '-' parsed as 71.88
+Expenses sheet (Expenses) row 61: Detected input_vat '-' parsed as 420
+Expenses sheet (Expenses) row 62: Detected input_vat '-' parsed as 2514.51
+Expenses sheet (Expenses) row 63: Detected input_vat '-' parsed as 1709.28
+Expenses sheet (Expenses) row 64: Detected input_vat '-' parsed as 2863.59
+Expenses sheet (Expenses) row 65: Detected input_vat '-' parsed as 240
+Expenses sheet (Expenses) row 66: Detected input_vat '-' parsed as 24
+Expenses sheet (Expenses) row 67: Detected input_vat '-' parsed as 660
+Expenses sheet (Expenses) row 68: Detected input_vat '-' parsed as 24
+Expenses sheet (Expenses) row 69: Detected input_vat '-' parsed as 31.2
+Expenses sheet (Expenses) row 70: Detected input_vat '-' parsed as 24
+Expenses sheet (Expenses) row 71: Detected input_vat '-' parsed as 1877.85
+Expenses sheet (Expenses) row 72: Detected input_vat '-' parsed as 660
+Expenses sheet (Expenses) row 73: Detected input_vat '-' parsed as 264
+Expenses sheet (Expenses) row 74: Detected input_vat '-' parsed as 378
+Expenses sheet (Expenses) row 75: Detected input_vat '-' parsed as 8.4
+Expenses sheet (Expenses) row 76: Detected input_vat '-' parsed as 60
+Expenses sheet (Expenses) row 77: Detected input_vat '-' parsed as 24
+Expenses sheet (Expenses) row 78: Detected input_vat '-' parsed as 1320
+Expenses sheet (Expenses) row 79: Detected input_vat '-' parsed as 1459.32
+Expenses sheet (Expenses) row 80: Detected input_vat '-' parsed as 2937.12
+Expenses sheet (Expenses) row 81: Detected input_vat '-' parsed as 2520
+Expenses sheet (Expenses) row 82: Detected input_vat '-' parsed as 1918.68
+Expenses sheet (Expenses) row 83: Detected input_vat '-' parsed as 660
+Expenses sheet (Expenses) row 84: Detected input_vat '-' parsed as 179.88
+Expenses sheet (Expenses) row 85: Detected input_vat '-' parsed as 3113.93
+Expenses sheet (Expenses) row 86: Detected input_vat '-' parsed as 3121.78
+Expenses sheet (Expenses) row 87: Detected input_vat '-' parsed as 14106
+Expenses sheet (Expenses) row 88: Detected input_vat '-' parsed as 2520
+Expenses sheet (Expenses) row 89: Detected input_vat '-' parsed as 1918.68
+Expenses sheet (Expenses) row 90: Detected input_vat '-' parsed as 660
+Expenses sheet (Expenses) row 91: Detected input_vat '-' parsed as 179.88
+Expenses sheet (Expenses) row 92: Detected input_vat '-' parsed as 55.47
+Expenses sheet (Expenses) row 93: Detected input_vat '-' parsed as 3810
+Expenses sheet (Expenses) row 94: Detected input_vat '-' parsed as 27
+Expenses sheet (Expenses) row 95: Detected input_vat '-' parsed as 10.2
+Expenses sheet (Expenses) row 96: Detected input_vat '-' parsed as 24
+Stopped processing Expenses sheet at row 101 for company 14 due to 5 consecutive empty rows
+Uploaded file for company 14: Jehu 2025 Sales _ Expenses (3).xlsx, Size: 356167
+Detected sheet names for company 14: Array
+(
+    [0] => Income
+    [1] => Expenses
+    [2] => Sales
+    [3] => Purchases
+    [4] => Sheet1
+)
+
+Income sheet (Income) for company 14 first 3 rows: Array
+(
+    [0] => Array
+        (
+            [A] => Date
+            [B] => Invoice No.
+            [C] => Payee (Name of Buyer)
+            [D] => TIN #
+            [E] => Amount
+            [F] => Main Category
+            [G] => Sub Category
+            [H] => Output VAT 
+            [I] => 2307 (EWT if there is)
+            [J] => Category
+            [K] => MODE
+            [L] => REMARKS
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+    [1] => Array
+        (
+            [A] => 07-Jan-25
+            [B] => DR 2694
+            [C] => Moch
+            [D] => 
+            [E] =>   8,602.50 
+            [F] => Revenue
+            [G] => Sales
+            [H] =>   1,032.30 
+            [I] => 
+            [J] => Receipts
+            [K] => CASH - DR
+            [L] => 
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+    [2] => Array
+        (
+            [A] => 07-Jan-25
+            [B] => DR 2695
+            [C] => Jsloft
+            [D] => 
+            [E] =>   4,900.00 
+            [F] => Revenue
+            [G] => Sales
+            [H] =>   588.00 
+            [I] => 
+            [J] => Receipts
+            [K] => CASH - DR
+            [L] => 
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+)
+
+Income sheet (Income) for company 14 first header attempt: Array
+(
+    [A] => Date
+    [B] => Invoice No.
+    [C] => Payee (Name of Buyer)
+    [D] => TIN #
+    [E] => Amount
+    [F] => Main Category
+    [G] => Sub Category
+    [H] => Output VAT 
+    [I] => 2307 (EWT if there is)
+    [J] => Category
+    [K] => MODE
+    [L] => REMARKS
+    [M] => 
+    [N] => 
+    [O] => 
+    [P] => 
+    [Q] => 
+    [R] => 
+    [S] => 
+    [T] => 
+    [U] => 
+    [V] => 
+    [W] => 
+    [X] => 
+    [Y] => 
+    [Z] => 
+    [AA] => 
+    [AB] => 
+)
+
+Found column 'date' at index A (header: Date)
+Found column 'invoice no' at index B (header: Invoice No.)
+Failed to find column 'name' (alternatives: payor, donor, contributor, donor name, payor name, payor)
+Found column 'sub category' at index G (header: Sub Category)
+Found column 'amount' at index E (header: Amount)
+Found column 'notes' at index L (header: REMARKS)
+Failed to find column 'payment method' (alternatives: payment, method, payment type)
+Found column 'output_vat' at index H (header: Output VAT )
+Income sheet (Income) row 0: Detected output_vat '1,032.30' parsed as 1032.3
+Income sheet (Income) row 1: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 2: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 3: Detected output_vat '790.20' parsed as 790.2
+Income sheet (Income) row 4: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 5: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 6: Detected output_vat '653.88' parsed as 653.88
+Income sheet (Income) row 7: Detected output_vat '1,356.00' parsed as 1356
+Income sheet (Income) row 8: Detected output_vat '265.05' parsed as 265.05
+Income sheet (Income) row 9: Detected output_vat '1,493.40' parsed as 1493.4
+Income sheet (Income) row 10: Detected output_vat '789.00' parsed as 789
+Income sheet (Income) row 11: Detected output_vat '1,443.24' parsed as 1443.24
+Income sheet (Income) row 12: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 13: Detected output_vat '282.00' parsed as 282
+Income sheet (Income) row 14: Detected output_vat '174.00' parsed as 174
+Income sheet (Income) row 15: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 16: Detected output_vat '710.04' parsed as 710.04
+Income sheet (Income) row 17: Detected output_vat '186.00' parsed as 186
+Income sheet (Income) row 18: Detected output_vat '140.40' parsed as 140.4
+Income sheet (Income) row 19: Detected output_vat '404.40' parsed as 404.4
+Income sheet (Income) row 20: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 21: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 22: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 23: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 24: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 25: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 26: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 27: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 28: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 29: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 30: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 31: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 32: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 33: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 34: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 35: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 36: Detected output_vat '131.40' parsed as 131.4
+Income sheet (Income) row 37: Detected output_vat '1,607.40' parsed as 1607.4
+Income sheet (Income) row 38: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 39: Detected output_vat '540.91' parsed as 540.91
+Income sheet (Income) row 40: Detected output_vat '539.14' parsed as 539.14
+Income sheet (Income) row 41: Detected output_vat '540.00' parsed as 540
+Income sheet (Income) row 42: Detected output_vat '991.80' parsed as 991.8
+Income sheet (Income) row 43: Detected output_vat '495.00' parsed as 495
+Income sheet (Income) row 44: Detected output_vat '159.24' parsed as 159.24
+Income sheet (Income) row 45: Detected output_vat '1,848.00' parsed as 1848
+Income sheet (Income) row 46: Detected output_vat '836.50' parsed as 836.5
+Income sheet (Income) row 47: Detected output_vat '576.00' parsed as 576
+Income sheet (Income) row 48: Detected output_vat '170.54' parsed as 170.54
+Income sheet (Income) row 49: Detected output_vat '1,097.88' parsed as 1097.88
+Income sheet (Income) row 50: Detected output_vat '546.00' parsed as 546
+Income sheet (Income) row 51: Detected output_vat '462.00' parsed as 462
+Income sheet (Income) row 52: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 53: Detected output_vat '427.32' parsed as 427.32
+Income sheet (Income) row 54: Detected output_vat '143.76' parsed as 143.76
+Income sheet (Income) row 55: Detected output_vat '203.40' parsed as 203.4
+Income sheet (Income) row 56: Detected output_vat '577.80' parsed as 577.8
+Income sheet (Income) row 57: Detected output_vat '1,039.50' parsed as 1039.5
+Income sheet (Income) row 58: Detected output_vat '645.84' parsed as 645.84
+Income sheet (Income) row 59: Detected output_vat '348.00' parsed as 348
+Income sheet (Income) row 60: Detected output_vat '540.00' parsed as 540
+Income sheet (Income) row 61: Detected output_vat '172.80' parsed as 172.8
+Income sheet (Income) row 62: Detected output_vat '2,428.20' parsed as 2428.2
+Income sheet (Income) row 63: Detected output_vat '546.00' parsed as 546
+Income sheet (Income) row 64: Detected output_vat '576.00' parsed as 576
+Income sheet (Income) row 65: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 66: Detected output_vat '495.00' parsed as 495
+Income sheet (Income) row 67: Detected output_vat '795.60' parsed as 795.6
+Income sheet (Income) row 68: Detected output_vat '61.32' parsed as 61.32
+Income sheet (Income) row 69: Detected output_vat '576.00' parsed as 576
+Income sheet (Income) row 70: Detected output_vat '684.00' parsed as 684
+Income sheet (Income) row 71: Detected output_vat '950.04' parsed as 950.04
+Income sheet (Income) row 72: Detected output_vat '1,120.50' parsed as 1120.5
+Income sheet (Income) row 73: Detected output_vat '380.02' parsed as 380.02
+Income sheet (Income) row 74: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 75: Detected output_vat '251.40' parsed as 251.4
+Income sheet (Income) row 76: Detected output_vat '2,401.98' parsed as 2401.98
+Income sheet (Income) row 77: Detected output_vat '540.00' parsed as 540
+Income sheet (Income) row 78: Detected output_vat '114.00' parsed as 114
+Income sheet (Income) row 79: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 80: Detected output_vat '261.60' parsed as 261.6
+Income sheet (Income) row 81: Detected output_vat '114.00' parsed as 114
+Income sheet (Income) row 82: Detected output_vat '418.44' parsed as 418.44
+Income sheet (Income) row 83: Detected output_vat '1,717.98' parsed as 1717.98
+Income sheet (Income) row 84: Detected output_vat '661.20' parsed as 661.2
+Income sheet (Income) row 85: Detected output_vat '510.12' parsed as 510.12
+Income sheet (Income) row 86: Detected output_vat '1,578.00' parsed as 1578
+Income sheet (Income) row 87: Detected output_vat '1,064.70' parsed as 1064.7
+Income sheet (Income) row 88: Detected output_vat '6,930.00' parsed as 6930
+Income sheet (Income) row 89: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 90: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 91: Detected output_vat '2,223.00' parsed as 2223
+Income sheet (Income) row 92: Detected output_vat '2,622.60' parsed as 2622.6
+Income sheet (Income) row 93: Detected output_vat '883.18' parsed as 883.18
+Income sheet (Income) row 94: Detected output_vat '1,104.48' parsed as 1104.48
+Income sheet (Income) row 95: Detected output_vat '862.98' parsed as 862.98
+Income sheet (Income) row 96: Detected output_vat '438.00' parsed as 438
+Income sheet (Income) row 97: Detected output_vat '418.44' parsed as 418.44
+Income sheet (Income) row 98: Detected output_vat '24.60' parsed as 24.6
+Income sheet (Income) row 99: Detected output_vat '1,768.80' parsed as 1768.8
+Income sheet (Income) row 100: Detected output_vat '209.81' parsed as 209.81
+Income sheet (Income) row 101: Detected output_vat '750.00' parsed as 750
+Income sheet (Income) row 102: Detected output_vat '524.40' parsed as 524.4
+Income sheet (Income) row 103: Detected output_vat '1,109.22' parsed as 1109.22
+Income sheet (Income) row 104: Detected output_vat '508.20' parsed as 508.2
+Income sheet (Income) row 105: Detected output_vat '1,222.08' parsed as 1222.08
+Income sheet (Income) row 106: Detected output_vat '905.16' parsed as 905.16
+Income sheet (Income) row 107: Detected output_vat '435.00' parsed as 435
+Income sheet (Income) row 108: Detected output_vat '984.67' parsed as 984.67
+Income sheet (Income) row 109: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 110: Detected output_vat '2,017.80' parsed as 2017.8
+Income sheet (Income) row 111: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 112: Detected output_vat '1,155.96' parsed as 1155.96
+Income sheet (Income) row 113: Detected output_vat '411.60' parsed as 411.6
+Income sheet (Income) row 114: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 115: Detected output_vat '2,626.20' parsed as 2626.2
+Income sheet (Income) row 116: Detected output_vat '137.28' parsed as 137.28
+Income sheet (Income) row 117: Detected output_vat '546.00' parsed as 546
+Income sheet (Income) row 118: Detected output_vat '1,063.62' parsed as 1063.62
+Income sheet (Income) row 119: Detected output_vat '3,696.00' parsed as 3696
+Stopped processing Income sheet at row 124 for company 14 due to 5 consecutive empty rows
+Expenses sheet (Expenses) for company 14 first 3 rows: Array
+(
+    [0] => Array
+        (
+            [A] => Date
+            [B] => Receipt #
+            [C] => Supplier
+            [D] => Supplier Tin (Required if VAT)
+            [E] => Particulars (please describe the expense)
+            [F] => Amount
+            [G] => Main Category
+            [H] => Sub Category
+            [I] => Input VAT
+            [J] => Mode
+            [K] => Remarks
+            [L] => 
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+    [1] => Array
+        (
+            [A] => 01-Jan-25
+            [B] => 
+            [C] => Hyundai
+            [D] => 
+            [E] => H100 vehicle
+            [F] => 21,000.00
+            [G] => Expenses
+            [H] => Transportation 
+            [I] =>   2,520.00 
+            [J] => CASH
+            [K] => 
+            [L] => 
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+    [2] => Array
+        (
+            [A] => 02-Jan-25
+            [B] => 
+            [C] => Asialink
+            [D] => 
+            [E] => Car loan
+            [F] => 15,989.00
+            [G] => Expenses
+            [H] => Other Expenses
+            [I] =>   1,918.68 
+            [J] => CASH
+            [K] => 
+            [L] => 
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+)
+
+Expenses sheet (Expenses) for company 14 first header attempt: Array
+(
+    [A] => Date
+    [B] => Receipt #
+    [C] => Supplier
+    [D] => Supplier Tin (Required if VAT)
+    [E] => Particulars (please describe the expense)
+    [F] => Amount
+    [G] => Main Category
+    [H] => Sub Category
+    [I] => Input VAT
+    [J] => Mode
+    [K] => Remarks
+    [L] => 
+    [M] => 
+    [N] => 
+    [O] => 
+    [P] => 
+    [Q] => 
+    [R] => 
+    [S] => 
+    [T] => 
+    [U] => 
+    [V] => 
+    [W] => 
+    [X] => 
+    [Y] => 
+    [Z] => 
+    [AA] => 
+    [AB] => 
+)
+
+Found column 'date' at index A (header: Date)
+Found column 'receipt no' at index B (header: Receipt #)
+Failed to find column 'vendor' (alternatives: vendor name, payee, recipient, paid to)
+Found column 'supplier' at index C (header: Supplier)
+Failed to find column 'supplier tin' (alternatives: tin, supplier tin, tin no)
+Failed to find column 'category' (alternatives: expense type, expense category, category, main account)
+Found column 'sub category' at index H (header: Sub Category)
+Found column 'amount' at index F (header: Amount)
+Failed to find column 'explanation' (alternatives: purpose, details)
+Found column 'notes' at index K (header: Remarks)
+Found column 'input_vat' at index I (header: Input VAT)
+Stopped processing Expenses sheet at row 101 for company 14 due to 5 consecutive empty rows
+Uploaded file for company 14: Jehu 2025 Sales _ Expenses (3).xlsx, Size: 356167
+Detected sheet names for company 14: Array
+(
+    [0] => Income
+    [1] => Expenses
+    [2] => Sales
+    [3] => Purchases
+    [4] => Sheet1
+)
+
+Income sheet (Income) for company 14 first 3 rows: Array
+(
+    [0] => Array
+        (
+            [A] => Date
+            [B] => Invoice No.
+            [C] => Payee (Name of Buyer)
+            [D] => TIN #
+            [E] => Amount
+            [F] => Main Category
+            [G] => Sub Category
+            [H] => Output VAT 
+            [I] => 2307 (EWT if there is)
+            [J] => Category
+            [K] => MODE
+            [L] => REMARKS
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+    [1] => Array
+        (
+            [A] => 07-Jan-25
+            [B] => DR 2694
+            [C] => Moch
+            [D] => 
+            [E] =>   8,602.50 
+            [F] => Revenue
+            [G] => Sales
+            [H] =>   1,032.30 
+            [I] => 
+            [J] => Receipts
+            [K] => CASH - DR
+            [L] => 
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+    [2] => Array
+        (
+            [A] => 07-Jan-25
+            [B] => DR 2695
+            [C] => Jsloft
+            [D] => 
+            [E] =>   4,900.00 
+            [F] => Revenue
+            [G] => Sales
+            [H] =>   588.00 
+            [I] => 
+            [J] => Receipts
+            [K] => CASH - DR
+            [L] => 
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+)
+
+Income sheet (Income) for company 14 first header attempt: Array
+(
+    [A] => Date
+    [B] => Invoice No.
+    [C] => Payee (Name of Buyer)
+    [D] => TIN #
+    [E] => Amount
+    [F] => Main Category
+    [G] => Sub Category
+    [H] => Output VAT 
+    [I] => 2307 (EWT if there is)
+    [J] => Category
+    [K] => MODE
+    [L] => REMARKS
+    [M] => 
+    [N] => 
+    [O] => 
+    [P] => 
+    [Q] => 
+    [R] => 
+    [S] => 
+    [T] => 
+    [U] => 
+    [V] => 
+    [W] => 
+    [X] => 
+    [Y] => 
+    [Z] => 
+    [AA] => 
+    [AB] => 
+)
+
+Found column 'date' at index A (header: Date)
+Found column 'invoice no' at index B (header: Invoice No.)
+Failed to find column 'name' (alternatives: payor, donor, contributor, donor name, payor name, payor)
+Found column 'sub category' at index G (header: Sub Category)
+Found column 'amount' at index E (header: Amount)
+Found column 'notes' at index L (header: REMARKS)
+Failed to find column 'payment method' (alternatives: payment, method, payment type)
+Found column 'output_vat' at index H (header: Output VAT )
+Income sheet (Income) row 0: Detected output_vat '1,032.30' parsed as 1032.3
+Income sheet (Income) row 1: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 2: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 3: Detected output_vat '790.20' parsed as 790.2
+Income sheet (Income) row 4: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 5: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 6: Detected output_vat '653.88' parsed as 653.88
+Income sheet (Income) row 7: Detected output_vat '1,356.00' parsed as 1356
+Income sheet (Income) row 8: Detected output_vat '265.05' parsed as 265.05
+Income sheet (Income) row 9: Detected output_vat '1,493.40' parsed as 1493.4
+Income sheet (Income) row 10: Detected output_vat '789.00' parsed as 789
+Income sheet (Income) row 11: Detected output_vat '1,443.24' parsed as 1443.24
+Income sheet (Income) row 12: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 13: Detected output_vat '282.00' parsed as 282
+Income sheet (Income) row 14: Detected output_vat '174.00' parsed as 174
+Income sheet (Income) row 15: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 16: Detected output_vat '710.04' parsed as 710.04
+Income sheet (Income) row 17: Detected output_vat '186.00' parsed as 186
+Income sheet (Income) row 18: Detected output_vat '140.40' parsed as 140.4
+Income sheet (Income) row 19: Detected output_vat '404.40' parsed as 404.4
+Income sheet (Income) row 20: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 21: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 22: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 23: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 24: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 25: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 26: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 27: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 28: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 29: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 30: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 31: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 32: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 33: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 34: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 35: Detected output_vat '-00.00' parsed as 0
+Income sheet (Income) row 36: Detected output_vat '131.40' parsed as 131.4
+Income sheet (Income) row 37: Detected output_vat '1,607.40' parsed as 1607.4
+Income sheet (Income) row 38: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 39: Detected output_vat '540.91' parsed as 540.91
+Income sheet (Income) row 40: Detected output_vat '539.14' parsed as 539.14
+Income sheet (Income) row 41: Detected output_vat '540.00' parsed as 540
+Income sheet (Income) row 42: Detected output_vat '991.80' parsed as 991.8
+Income sheet (Income) row 43: Detected output_vat '495.00' parsed as 495
+Income sheet (Income) row 44: Detected output_vat '159.24' parsed as 159.24
+Income sheet (Income) row 45: Detected output_vat '1,848.00' parsed as 1848
+Income sheet (Income) row 46: Detected output_vat '836.50' parsed as 836.5
+Income sheet (Income) row 47: Detected output_vat '576.00' parsed as 576
+Income sheet (Income) row 48: Detected output_vat '170.54' parsed as 170.54
+Income sheet (Income) row 49: Detected output_vat '1,097.88' parsed as 1097.88
+Income sheet (Income) row 50: Detected output_vat '546.00' parsed as 546
+Income sheet (Income) row 51: Detected output_vat '462.00' parsed as 462
+Income sheet (Income) row 52: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 53: Detected output_vat '427.32' parsed as 427.32
+Income sheet (Income) row 54: Detected output_vat '143.76' parsed as 143.76
+Income sheet (Income) row 55: Detected output_vat '203.40' parsed as 203.4
+Income sheet (Income) row 56: Detected output_vat '577.80' parsed as 577.8
+Income sheet (Income) row 57: Detected output_vat '1,039.50' parsed as 1039.5
+Income sheet (Income) row 58: Detected output_vat '645.84' parsed as 645.84
+Income sheet (Income) row 59: Detected output_vat '348.00' parsed as 348
+Income sheet (Income) row 60: Detected output_vat '540.00' parsed as 540
+Income sheet (Income) row 61: Detected output_vat '172.80' parsed as 172.8
+Income sheet (Income) row 62: Detected output_vat '2,428.20' parsed as 2428.2
+Income sheet (Income) row 63: Detected output_vat '546.00' parsed as 546
+Income sheet (Income) row 64: Detected output_vat '576.00' parsed as 576
+Income sheet (Income) row 65: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 66: Detected output_vat '495.00' parsed as 495
+Income sheet (Income) row 67: Detected output_vat '795.60' parsed as 795.6
+Income sheet (Income) row 68: Detected output_vat '61.32' parsed as 61.32
+Income sheet (Income) row 69: Detected output_vat '576.00' parsed as 576
+Income sheet (Income) row 70: Detected output_vat '684.00' parsed as 684
+Income sheet (Income) row 71: Detected output_vat '950.04' parsed as 950.04
+Income sheet (Income) row 72: Detected output_vat '1,120.50' parsed as 1120.5
+Income sheet (Income) row 73: Detected output_vat '380.02' parsed as 380.02
+Income sheet (Income) row 74: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 75: Detected output_vat '251.40' parsed as 251.4
+Income sheet (Income) row 76: Detected output_vat '2,401.98' parsed as 2401.98
+Income sheet (Income) row 77: Detected output_vat '540.00' parsed as 540
+Income sheet (Income) row 78: Detected output_vat '114.00' parsed as 114
+Income sheet (Income) row 79: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 80: Detected output_vat '261.60' parsed as 261.6
+Income sheet (Income) row 81: Detected output_vat '114.00' parsed as 114
+Income sheet (Income) row 82: Detected output_vat '418.44' parsed as 418.44
+Income sheet (Income) row 83: Detected output_vat '1,717.98' parsed as 1717.98
+Income sheet (Income) row 84: Detected output_vat '661.20' parsed as 661.2
+Income sheet (Income) row 85: Detected output_vat '510.12' parsed as 510.12
+Income sheet (Income) row 86: Detected output_vat '1,578.00' parsed as 1578
+Income sheet (Income) row 87: Detected output_vat '1,064.70' parsed as 1064.7
+Income sheet (Income) row 88: Detected output_vat '6,930.00' parsed as 6930
+Income sheet (Income) row 89: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 90: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 91: Detected output_vat '2,223.00' parsed as 2223
+Income sheet (Income) row 92: Detected output_vat '2,622.60' parsed as 2622.6
+Income sheet (Income) row 93: Detected output_vat '883.18' parsed as 883.18
+Income sheet (Income) row 94: Detected output_vat '1,104.48' parsed as 1104.48
+Income sheet (Income) row 95: Detected output_vat '862.98' parsed as 862.98
+Income sheet (Income) row 96: Detected output_vat '438.00' parsed as 438
+Income sheet (Income) row 97: Detected output_vat '418.44' parsed as 418.44
+Income sheet (Income) row 98: Detected output_vat '24.60' parsed as 24.6
+Income sheet (Income) row 99: Detected output_vat '1,768.80' parsed as 1768.8
+Income sheet (Income) row 100: Detected output_vat '209.81' parsed as 209.81
+Income sheet (Income) row 101: Detected output_vat '750.00' parsed as 750
+Income sheet (Income) row 102: Detected output_vat '524.40' parsed as 524.4
+Income sheet (Income) row 103: Detected output_vat '1,109.22' parsed as 1109.22
+Income sheet (Income) row 104: Detected output_vat '508.20' parsed as 508.2
+Income sheet (Income) row 105: Detected output_vat '1,222.08' parsed as 1222.08
+Income sheet (Income) row 106: Detected output_vat '905.16' parsed as 905.16
+Income sheet (Income) row 107: Detected output_vat '435.00' parsed as 435
+Income sheet (Income) row 108: Detected output_vat '984.67' parsed as 984.67
+Income sheet (Income) row 109: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 110: Detected output_vat '2,017.80' parsed as 2017.8
+Income sheet (Income) row 111: Detected output_vat '288.00' parsed as 288
+Income sheet (Income) row 112: Detected output_vat '1,155.96' parsed as 1155.96
+Income sheet (Income) row 113: Detected output_vat '411.60' parsed as 411.6
+Income sheet (Income) row 114: Detected output_vat '588.00' parsed as 588
+Income sheet (Income) row 115: Detected output_vat '2,626.20' parsed as 2626.2
+Income sheet (Income) row 116: Detected output_vat '137.28' parsed as 137.28
+Income sheet (Income) row 117: Detected output_vat '546.00' parsed as 546
+Income sheet (Income) row 118: Detected output_vat '1,063.62' parsed as 1063.62
+Income sheet (Income) row 119: Detected output_vat '3,696.00' parsed as 3696
+Stopped processing Income sheet at row 124 for company 14 due to 5 consecutive empty rows
+Expenses sheet (Expenses) for company 14 first 3 rows: Array
+(
+    [0] => Array
+        (
+            [A] => Date
+            [B] => Receipt #
+            [C] => Supplier
+            [D] => Supplier Tin (Required if VAT)
+            [E] => Particulars (please describe the expense)
+            [F] => Amount
+            [G] => Main Category
+            [H] => Sub Category
+            [I] => Input VAT
+            [J] => Mode
+            [K] => Remarks
+            [L] => 
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+    [1] => Array
+        (
+            [A] => 01-Jan-25
+            [B] => 
+            [C] => Hyundai
+            [D] => 
+            [E] => H100 vehicle
+            [F] => 21,000.00
+            [G] => Expenses
+            [H] => Transportation 
+            [I] =>   2,520.00 
+            [J] => CASH
+            [K] => 
+            [L] => 
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+    [2] => Array
+        (
+            [A] => 02-Jan-25
+            [B] => 
+            [C] => Asialink
+            [D] => 
+            [E] => Car loan
+            [F] => 15,989.00
+            [G] => Expenses
+            [H] => Other Expenses
+            [I] =>   1,918.68 
+            [J] => CASH
+            [K] => 
+            [L] => 
+            [M] => 
+            [N] => 
+            [O] => 
+            [P] => 
+            [Q] => 
+            [R] => 
+            [S] => 
+            [T] => 
+            [U] => 
+            [V] => 
+            [W] => 
+            [X] => 
+            [Y] => 
+            [Z] => 
+            [AA] => 
+            [AB] => 
+        )
+
+)
+
+Expenses sheet (Expenses) for company 14 first header attempt: Array
+(
+    [A] => Date
+    [B] => Receipt #
+    [C] => Supplier
+    [D] => Supplier Tin (Required if VAT)
+    [E] => Particulars (please describe the expense)
+    [F] => Amount
+    [G] => Main Category
+    [H] => Sub Category
+    [I] => Input VAT
+    [J] => Mode
+    [K] => Remarks
+    [L] => 
+    [M] => 
+    [N] => 
+    [O] => 
+    [P] => 
+    [Q] => 
+    [R] => 
+    [S] => 
+    [T] => 
+    [U] => 
+    [V] => 
+    [W] => 
+    [X] => 
+    [Y] => 
+    [Z] => 
+    [AA] => 
+    [AB] => 
+)
+
+Found column 'date' at index A (header: Date)
+Found column 'receipt no' at index B (header: Receipt #)
+Failed to find column 'vendor' (alternatives: vendor name, payee, recipient, paid to)
+Found column 'supplier' at index C (header: Supplier)
+Failed to find column 'supplier tin' (alternatives: tin, supplier tin, tin no)
+Failed to find column 'category' (alternatives: expense type, expense category, category, main account)
+Found column 'sub category' at index H (header: Sub Category)
+Found column 'amount' at index F (header: Amount)
+Failed to find column 'explanation' (alternatives: purpose, details)
+Found column 'notes' at index K (header: Remarks)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Found column 'input_vat' at index I (header: Input VAT)
+Stopped processing Expenses sheet at row 101 for company 14 due to 5 consecutive empty rows
