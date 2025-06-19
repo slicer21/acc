@@ -8,13 +8,19 @@ error_reporting(E_ALL);
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
+    if (!isset($_SESSION['current_company_id'])) {
+        $_SESSION['current_company_id'] = $company_id; // Set default if not set
+    }
 }
 
-// Get company ID and year, with validation
-$company_id = isset($_GET['company_id']) ? intval($_GET['company_id']) : 1;
+// Get company ID and year, with validation and logging
+$company_id = isset($_GET['company_id']) ? intval($_GET['company_id']) : (isset($_SESSION['current_company_id']) ? $_SESSION['current_company_id'] : 1);
 if ($company_id <= 0) {
+    file_put_contents('profit_loss_errors.log', "Invalid company ID: $company_id at " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
     die("Invalid company ID");
 }
+file_put_contents('profit_loss_errors.log', "Company ID set to: $company_id at " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
+
 $year = isset($_GET['year']) ? intval($_GET['year']) : date('Y');
 if ($year < 1900 || $year > 9999) {
     $year = date('Y');
@@ -31,6 +37,7 @@ if (!$startDateObj || !$endDateObj || $startDateObj > $endDateObj || $startDateO
     $end_date = "$year-12-31";
     $startDateObj = DateTime::createFromFormat('Y-m-d', $start_date);
     $endDateObj = DateTime::createFromFormat('Y-m-d', $end_date);
+    file_put_contents('profit_loss_errors.log', "Date range reset to $start_date to $end_date at " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 }
 
 // Sanitize dates for SQL
@@ -58,10 +65,11 @@ $total_income_query = $conn->query("
     )
 ");
 if ($total_income_query === false) {
-    file_put_contents('profit_loss_errors.log', "Income query failed: " . $conn->error . "\n", FILE_APPEND);
+    file_put_contents('profit_loss_errors.log', "Income query failed: " . $conn->error . " at " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
     $total_income = 0;
 } else {
     $total_income = $total_income_query->fetch_assoc()['total'] ?? 0;
+    file_put_contents('profit_loss_errors.log', "Total income: $total_income at " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 }
 
 $total_expenses_query = $conn->query("
@@ -72,13 +80,15 @@ $total_expenses_query = $conn->query("
     AND category NOT IN ('Equity', 'Owners Equity')
 ");
 if ($total_expenses_query === false) {
-    file_put_contents('profit_loss_errors.log', "Expenses query failed: " . $conn->error . "\n", FILE_APPEND);
+    file_put_contents('profit_loss_errors.log', "Expenses query failed: " . $conn->error . " at " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
     $total_expenses = 0;
 } else {
     $total_expenses = $total_expenses_query->fetch_assoc()['total'] ?? 0;
+    file_put_contents('profit_loss_errors.log', "Total expenses: $total_expenses at " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 }
 
 $net = $total_income - $total_expenses;
+file_put_contents('profit_loss_errors.log', "Net: $net at " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 
 // Get income breakdown - exclude equity/balance sheet items
 $income_breakdown = $conn->query("
@@ -103,7 +113,7 @@ $income_breakdown = $conn->query("
     ORDER BY sub_category
 ");
 if ($income_breakdown === false) {
-    file_put_contents('profit_loss_errors.log', "Income breakdown query failed: " . $conn->error . "\n", FILE_APPEND);
+    file_put_contents('profit_loss_errors.log', "Income breakdown query failed: " . $conn->error . " at " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 }
 
 // Get expense breakdown - exclude equity categories
@@ -119,7 +129,7 @@ $expense_breakdown_query = $conn->query("
         sub_category
 ");
 if ($expense_breakdown_query === false) {
-    file_put_contents('profit_loss_errors.log', "Expense breakdown query failed: " . $conn->error . "\n", FILE_APPEND);
+    file_put_contents('profit_loss_errors.log', "Expense breakdown query failed: " . $conn->error . " at " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 }
 
 // Store expense breakdown in an array for easier processing
@@ -141,7 +151,7 @@ $years_result = $conn->query("
     ORDER BY year DESC
 ");
 if ($years_result === false) {
-    file_put_contents('profit_loss_errors.log', "Years query failed: " . $conn->error . "\n", FILE_APPEND);
+    file_put_contents('profit_loss_errors.log', "Years query failed: " . $conn->error . " at " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 }
 $years = [];
 if ($years_result) {
@@ -151,6 +161,7 @@ if ($years_result) {
 }
 if (empty($years)) {
     $years[] = date('Y');
+    file_put_contents('profit_loss_errors.log', "No years found, defaulting to " . date('Y') . " at " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 }
 
 // Map categories for display
