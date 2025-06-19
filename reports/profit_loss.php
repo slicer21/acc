@@ -37,13 +37,25 @@ if (!$startDateObj || !$endDateObj || $startDateObj > $endDateObj || $startDateO
 $start_date = $conn->real_escape_string($start_date);
 $end_date = $conn->real_escape_string($end_date);
 
-// Get totals for display with date range filter
+// Get totals for display with date range filter - exclude equity/balance sheet items
 $total_income_query = $conn->query("
     SELECT IFNULL(SUM(amount), 0) as total 
     FROM income 
     WHERE company_id = $company_id
     AND date BETWEEN '$start_date' AND '$end_date'
-    AND sub_category NOT IN ('Balance Sheet', 'Other Payable', 'Advances from Officers', 'Accumulated Depreciation', 'Accounts Receivable', 'Cash', 'Furniture and Equipment', 'Depreciation Expense')
+    AND sub_category NOT IN (
+        'Balance Sheet', 
+        'Other Payable', 
+        'Advances from Officers', 
+        'Accumulated Depreciation', 
+        'Accounts Receivable', 
+        'Cash', 
+        'Furniture and Equipment', 
+        'Depreciation Expense',
+        'Owners Drawings',
+        'Equity',
+        'Retained Earnings'
+    )
 ");
 if ($total_income_query === false) {
     file_put_contents('profit_loss_errors.log', "Income query failed: " . $conn->error . "\n", FILE_APPEND);
@@ -57,6 +69,7 @@ $total_expenses_query = $conn->query("
     FROM expenses 
     WHERE company_id = $company_id
     AND date BETWEEN '$start_date' AND '$end_date'
+    AND category NOT IN ('Equity', 'Owners Equity')
 ");
 if ($total_expenses_query === false) {
     file_put_contents('profit_loss_errors.log', "Expenses query failed: " . $conn->error . "\n", FILE_APPEND);
@@ -67,13 +80,25 @@ if ($total_expenses_query === false) {
 
 $net = $total_income - $total_expenses;
 
-// Get income breakdown
+// Get income breakdown - exclude equity/balance sheet items
 $income_breakdown = $conn->query("
     SELECT sub_category, SUM(amount) as total 
     FROM income 
     WHERE company_id = $company_id
     AND date BETWEEN '$start_date' AND '$end_date'
-    AND sub_category NOT IN ('Balance Sheet', 'Other Payable', 'Advances from Officers', 'Accumulated Depreciation', 'Accounts Receivable', 'Cash', 'Furniture and Equipment', 'Depreciation Expense')
+    AND sub_category NOT IN (
+        'Balance Sheet', 
+        'Other Payable', 
+        'Advances from Officers', 
+        'Accumulated Depreciation', 
+        'Accounts Receivable', 
+        'Cash', 
+        'Furniture and Equipment', 
+        'Depreciation Expense',
+        'Owners Drawings',
+        'Equity',
+        'Retained Earnings'
+    )
     GROUP BY sub_category
     ORDER BY sub_category
 ");
@@ -81,12 +106,13 @@ if ($income_breakdown === false) {
     file_put_contents('profit_loss_errors.log', "Income breakdown query failed: " . $conn->error . "\n", FILE_APPEND);
 }
 
-// Get expense breakdown with all categories
+// Get expense breakdown - exclude equity categories
 $expense_breakdown_query = $conn->query("
     SELECT category, COALESCE(sub_category, 'Other') as sub_category, SUM(amount) as total 
     FROM expenses 
     WHERE company_id = $company_id
     AND date BETWEEN '$start_date' AND '$end_date'
+    AND category NOT IN ('Equity', 'Owners Equity')
     GROUP BY category, sub_category
     ORDER BY 
         FIELD(category, 'Direct cost', 'Expenses'),
@@ -103,8 +129,6 @@ if ($expense_breakdown_query && $expense_breakdown_query->num_rows > 0) {
         $expense_breakdown[] = $row;
     }
 }
-// Log raw expense data for debugging
-file_put_contents('profit_loss_debug.log', "Expense Breakdown for company $company_id ($start_date to $end_date):\n" . print_r($expense_breakdown, true) . "\n", FILE_APPEND);
 
 // Get available years
 $years_result = $conn->query("
@@ -207,10 +231,10 @@ $category_mapping = [
                     <button type="submit" class="btn btn-primary">Filter</button>
                 </div>
                 <div class="align-self-end">
-    <a href="../export.php?type=profit_loss&company_id=<?= $company_id ?>&year=<?= $year ?>&start_date=<?= htmlspecialchars($start_date) ?>&end_date=<?= htmlspecialchars($end_date) ?>" class="btn btn-success">
-        <i class="bi bi-file-earmark-excel"></i> Export
-    </a>
-</div>
+                    <a href="../export.php?type=profit_loss&company_id=<?= $company_id ?>&year=<?= $year ?>&start_date=<?= htmlspecialchars($start_date) ?>&end_date=<?= htmlspecialchars($end_date) ?>" class="btn btn-success">
+                        <i class="bi bi-file-earmark-excel"></i> Export
+                    </a>
+                </div>
             </form>
         </div>
         

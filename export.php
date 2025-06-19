@@ -483,15 +483,31 @@ if (isset($_GET['type'])) {
                 $sheet->setTitle('Profit & Loss');
                 $sheet->setCellValue('A1', "PROFIT & LOSS STATEMENT - $date_range")->getStyle('A1')->getFont()->setBold(true);
                 $sheet->mergeCells('A1:B1');
+                
+                // Income section - exclude equity-related categories
                 $sheet->setCellValue('A3', 'INCOME')->getStyle('A3')->getFont()->setBold(true);
 
-                // Income
+                // Get income - exclude equity/balance sheet items
                 $income = $conn->query("
                     SELECT sub_category, SUM(amount) as total 
                     FROM income 
                     WHERE company_id = $company_id
                     AND date BETWEEN '$start_date' AND '$end_date'
+                    AND sub_category NOT IN (
+                        'Balance Sheet', 
+                        'Other Payable', 
+                        'Advances from Officers', 
+                        'Accumulated Depreciation', 
+                        'Accounts Receivable', 
+                        'Cash', 
+                        'Furniture and Equipment', 
+                        'Depreciation Expense',
+                        'Owners Drawings',
+                        'Equity',
+                        'Retained Earnings'
+                    )
                     GROUP BY sub_category
+                    ORDER BY sub_category
                 ");
 
                 $row = 4;
@@ -508,7 +524,7 @@ if (isset($_GET['type'])) {
                 $sheet->getStyle("B4:B{$row}")->getNumberFormat()->setFormatCode('#,##0.00');
                 $row += 2;
 
-                // Expenses
+                // Expenses - exclude equity categories
                 $sheet->setCellValue("A{$row}", 'EXPENSES')->getStyle("A{$row}")->getFont()->setBold(true);
                 $row++;
 
@@ -517,8 +533,11 @@ if (isset($_GET['type'])) {
                     FROM expenses 
                     WHERE company_id = $company_id
                     AND date BETWEEN '$start_date' AND '$end_date'
+                    AND category NOT IN ('Equity', 'Owners Equity')
                     GROUP BY category, sub_category
-                    ORDER BY category, sub_category
+                    ORDER BY 
+                        FIELD(category, 'Direct cost', 'Expenses'),
+                        sub_category
                 ");
 
                 $total_expenses = 0;

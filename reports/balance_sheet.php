@@ -74,8 +74,17 @@ $equity = $conn->query("
     FROM accounts a
     WHERE a.account_type = 'Equity' 
     AND a.company_id = $company_id
-    ORDER BY a.account_name
+    ORDER BY a.account_code
 ");
+
+// Get Owner's Drawings
+$owners_drawings = $conn->query("
+    SELECT IFNULL(SUM(amount), 0) as total
+    FROM expenses
+    WHERE company_id = $company_id
+    AND date <= '$end_date'
+    AND sub_category IN ('Owner\'s Drawing', 'Owner\'s Drawings', 'Owners Drawings')
+")->fetch_assoc()['total'] ?? 0;
 
 // Calculate totals, adjusting for contra-accounts
 $total_assets = $conn->query("
@@ -149,7 +158,8 @@ $net_income = $conn->query("
         (SELECT IFNULL(SUM(amount), 0) 
          FROM expenses 
          WHERE company_id = $company_id 
-         AND date BETWEEN '$start_date' AND '$end_date') as net_income
+         AND date BETWEEN '$start_date' AND '$end_date'
+         AND sub_category NOT IN ('Owner\'s Drawing', 'Owner\'s Drawings', 'Owners Drawings')) as net_income
 ")->fetch_assoc()['net_income'] ?? 0;
 
 // Get available years
@@ -205,6 +215,9 @@ if (empty($years)) {
             .form-control, .form-select {
                 margin-bottom: 0.5rem;
             }
+        }
+        .negative-equity {
+            color: #dc3545;
         }
     </style>
 </head>
@@ -458,12 +471,15 @@ if (empty($years)) {
                             <tbody>
                                 <?php 
                                 $has_equity = false;
+                                $total_equity_balance = 0;
+                                
                                 if ($equity->num_rows > 0):
                                     $equity->data_seek(0);
                                     while($row = $equity->fetch_assoc()): 
                                         $balance = $row['balance'];
                                         if ($balance != 0):
                                             $has_equity = true;
+                                            $total_equity_balance += $balance;
                                 ?>
                                 <tr>
                                     <td><?= htmlspecialchars($row['account_name']) ?></td>
@@ -474,24 +490,36 @@ if (empty($years)) {
                                     endwhile;
                                 endif; 
                                 
+                                // Add Owner's Drawings
+                                if ($owners_drawings != 0): ?>
+                                <tr>
+                                    <td>Owner's Drawings</td>
+                                    <td class="text-end negative-equity"><?= number_format(-$owners_drawings, 2) ?></td>
+                                </tr>
+                                <?php 
+                                    $total_equity_balance -= $owners_drawings;
+                                endif;
+                                
                                 if ($net_income != 0): 
                                 ?>
                                 <tr>
                                     <td>Current Period Earnings</td>
                                     <td class="text-end"><?= number_format($net_income, 2) ?></td>
                                 </tr>
-                                <?php endif; ?>
+                                <?php 
+                                    $total_equity_balance += $net_income;
+                                endif; 
                                 
-                                <?php if (!$has_equity && $net_income == 0): ?>
+                                if (!$has_equity && $net_income == 0 && $owners_drawings == 0): ?>
                                 <tr>
                                     <td colspan="2" class="empty-message">No equity accounts with balances</td>
                                 </tr>
                                 <?php endif; ?>
                                 
-                                <?php if ($has_equity || $net_income != 0): ?>
+                                <?php if ($has_equity || $net_income != 0 || $owners_drawings != 0): ?>
                                 <tr class="total-row">
                                     <th>Total Equity</th>
-                                    <th class="text-end"><?= number_format($total_equity + $net_income, 2) ?></th>
+                                    <th class="text-end"><?= number_format($total_equity_balance, 2) ?></th>
                                 </tr>
                                 <?php endif; ?>
                             </tbody>
@@ -501,9 +529,9 @@ if (empty($years)) {
             </div>
         </div>
         
-        <?php if ($total_assets != 0 || $total_liabilities != 0 || $total_equity != 0 || $net_income != 0): ?>
+        <?php if ($total_assets != 0 || $total_liabilities != 0 || $total_equity_balance != 0): ?>
         <div class="summary-section mt-4">
-            <h4>Total Liabilities & Equity: <?= number_format($total_liabilities + $total_equity + $net_income, 2) ?></h4>
+            <h4>Total Liabilities & Equity: <?= number_format($total_liabilities + $total_equity_balance, 2) ?></h4>
         </div>
         <?php endif; ?>
     </div>

@@ -460,7 +460,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
                 $supplierCol = findColumnIndex($header, 'supplier', ['vendor', 'payee', 'vendor name', 'recipient', 'paid to']);
                 $supplierTinCol = findColumnIndex($header, 'supplier tin', ['tin', 'supplier tin', 'tin no']);
                 $categoryCol = findColumnIndex($header, 'category', ['expense type', 'expense category', 'category', 'main account']);
-                $subCategoryCol = findColumnIndex($header, 'sub category', ['subcategory', 'type', 'sub category name', 'category type', 'mode', 'description', 'category']);
+                $subCategoryCol = findColumnIndex($header, 'sub category', ['subcategory', 'type', 'sub category name', 'category type', 'mode', 'description', 'sub category']);
                 $amountCol = findColumnIndex($header, 'amount', ['total', 'value', 'expense amount', 'cost', 'price', 'bill', 'invoice amount', 'payment'], $firstDataRow);
                 $explanationCol = findColumnIndex($header, 'explanation', ['purpose', 'details']);
                 $notesCol = findColumnIndex($header, 'notes', ['description', 'remarks', 'comments', 'memo']);

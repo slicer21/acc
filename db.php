@@ -75,6 +75,7 @@ function setupDefaultAccounts($company_id) {
         ['3000', 'General Fund', 'Equity'],
         ['3100', 'Restricted Funds', 'Equity'],
         ['3200', 'Retained Earnings', 'Equity'],
+        ['3300', 'Owner Drawings', 'Equity'],
         
         // Revenue
         ['4000', 'Tithes', 'Revenue'],
