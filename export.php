@@ -350,133 +350,133 @@ if (isset($_GET['type'])) {
                 break;
 
             case 'balance_sheet':
-                $sheet = $spreadsheet->getActiveSheet();
-                $sheet->setTitle('Balance Sheet');
-                $sheet->setCellValue('A1', "BALANCE SHEET - $date_range")->getStyle('A1')->getFont()->setBold(true);
-                $sheet->mergeCells('A1:B1');
-                $sheet->setCellValue('A3', 'ASSETS')->getStyle('A3')->getFont()->setBold(true);
+    $sheet = $spreadsheet->getActiveSheet();
+    $sheet->setTitle('Balance Sheet');
+    $sheet->setCellValue('A1', "BALANCE SHEET - $date_range")->getStyle('A1')->getFont()->setBold(true);
+    $sheet->mergeCells('A1:B1');
+    $sheet->setCellValue('A3', 'ASSETS')->getStyle('A3')->getFont()->setBold(true);
 
-                // Assets
-                $assets = $conn->query("
-                    SELECT a.account_name, 
-                           (SELECT IFNULL(SUM(CASE WHEN je.entry_type = 'debit' THEN je.amount ELSE -je.amount END), 0)
-                           FROM journal_entries je
-                           JOIN transactions t ON je.transaction_id = t.id
-                           WHERE je.account_code = a.account_code
-                           AND je.company_id = a.company_id
-                           AND t.transaction_date <= '$end_date') as balance
-                    FROM accounts a
-                    WHERE a.account_type = 'Asset' 
-                    AND a.company_id = $company_id
-                    AND a.account_code != '3000'
-                    ORDER BY a.account_code
-                ");
+    // Assets
+    $assets = $conn->query("
+        SELECT a.account_name, 
+               (SELECT IFNULL(SUM(CASE WHEN je.entry_type = 'debit' THEN je.amount ELSE -je.amount END), 0)
+               FROM journal_entries je
+               JOIN transactions t ON je.transaction_id = t.id
+               WHERE je.account_code = a.account_code
+               AND je.company_id = a.company_id
+               AND t.transaction_date <= '$end_date') as balance
+        FROM accounts a
+        WHERE a.account_type = 'Asset' 
+        AND a.company_id = $company_id
+        ORDER BY a.account_code
+    ");
 
-                $row = 4;
-                $total_assets = 0;
-                while ($data = $assets->fetch_assoc()) {
-                    if ($data['balance'] != 0) {
-                        $sheet->setCellValue("A{$row}", $data['account_name']);
-                        $sheet->setCellValue("B{$row}", (float)$data['balance']);
-                        $total_assets += $data['balance'];
-                        $row++;
-                    }
-                }
+    $row = 4;
+    $total_assets = 0;
+    while ($data = $assets->fetch_assoc()) {
+        if ($data['balance'] != 0) {
+            $sheet->setCellValue("A{$row}", $data['account_name']);
+            $sheet->setCellValue("B{$row}", (float)$data['balance']);
+            $total_assets += $data['balance'];
+            $row++;
+        }
+    }
 
-                $sheet->setCellValue("A{$row}", 'TOTAL ASSETS')->getStyle("A{$row}")->getFont()->setBold(true);
-                $sheet->setCellValue("B{$row}", (float)$total_assets)->getStyle("B{$row}")->getFont()->setBold(true);
-                $sheet->getStyle("B4:B{$row}")->getNumberFormat()->setFormatCode('#,##0.00');
-                $row += 2;
+    $sheet->setCellValue("A{$row}", 'TOTAL ASSETS')->getStyle("A{$row}")->getFont()->setBold(true);
+    $sheet->setCellValue("B{$row}", (float)$total_assets)->getStyle("B{$row}")->getFont()->setBold(true);
+    $sheet->getStyle("B4:B{$row}")->getNumberFormat()->setFormatCode('#,##0.00');
+    $row += 2;
 
-                // Liabilities
-                $sheet->setCellValue("A{$row}", 'LIABILITIES')->getStyle("A{$row}")->getFont()->setBold(true);
-                $row++;
+    // Liabilities
+    $sheet->setCellValue("A{$row}", 'LIABILITIES')->getStyle("A{$row}")->getFont()->setBold(true);
+    $row++;
 
-                $liabilities = $conn->query("
-                    SELECT a.account_name, 
-                           (SELECT IFNULL(SUM(CASE WHEN je.entry_type = 'credit' THEN je.amount ELSE -je.amount END), 0)
-                           FROM journal_entries je
-                           JOIN transactions t ON je.transaction_id = t.id
-                           WHERE je.account_code = a.account_code
-                           AND je.company_id = a.company_id
-                           AND t.transaction_date <= '$end_date') as balance
-                    FROM accounts a
-                    WHERE a.account_type = 'Liability' 
-                    AND a.company_id = $company_id
-                    ORDER BY a.account_code
-                ");
+    $liabilities = $conn->query("
+        SELECT a.account_name, 
+               (SELECT IFNULL(SUM(CASE WHEN je.entry_type = 'credit' THEN je.amount ELSE -je.amount END), 0)
+               FROM journal_entries je
+               JOIN transactions t ON je.transaction_id = t.id
+               WHERE je.account_code = a.account_code
+               AND je.company_id = a.company_id
+               AND t.transaction_date <= '$end_date') as balance
+        FROM accounts a
+        WHERE a.account_type = 'Liability' 
+        AND a.company_id = $company_id
+        ORDER BY a.account_code
+    ");
 
-                $total_liabilities = 0;
-                while ($data = $liabilities->fetch_assoc()) {
-                    if ($data['balance'] != 0) {
-                        $sheet->setCellValue("A{$row}", $data['account_name']);
-                        $sheet->setCellValue("B{$row}", (float)$data['balance']);
-                        $total_liabilities += $data['balance'];
-                        $row++;
-                    }
-                }
+    $total_liabilities = 0;
+    while ($data = $liabilities->fetch_assoc()) {
+        if ($data['balance'] != 0) {
+            $sheet->setCellValue("A{$row}", $data['account_name']);
+            $sheet->setCellValue("B{$row}", (float)$data['balance']);
+            $total_liabilities += $data['balance'];
+            $row++;
+        }
+    }
 
-                $sheet->setCellValue("A{$row}", 'TOTAL LIABILITIES')->getStyle("A{$row}")->getFont()->setBold(true);
-                $sheet->setCellValue("B{$row}", (float)$total_liabilities)->getStyle("B{$row}")->getFont()->setBold(true);
-                $sheet->getStyle("B4:B{$row}")->getNumberFormat()->setFormatCode('#,##0.00');
-                $row += 2;
+    $sheet->setCellValue("A{$row}", 'TOTAL LIABILITIES')->getStyle("A{$row}")->getFont()->setBold(true);
+    $sheet->setCellValue("B{$row}", (float)$total_liabilities)->getStyle("B{$row}")->getFont()->setBold(true);
+    $sheet->getStyle("B4:B{$row}")->getNumberFormat()->setFormatCode('#,##0.00');
+    $row += 2;
 
-                // Equity
-                $sheet->setCellValue("A{$row}", 'EQUITY')->getStyle("A{$row}")->getFont()->setBold(true);
-                $row++;
+    // Equity - Include all equity accounts
+    $sheet->setCellValue("A{$row}", 'EQUITY')->getStyle("A{$row}")->getFont()->setBold(true);
+    $row++;
 
-                $equity = $conn->query("
-                    SELECT a.account_name, 
-                           (SELECT IFNULL(SUM(CASE WHEN je.entry_type = 'credit' THEN je.amount ELSE -je.amount END), 0)
-                           FROM journal_entries je
-                           JOIN transactions t ON je.transaction_id = t.id
-                           WHERE je.account_code = a.account_code
-                           AND je.company_id = a.company_id
-                           AND t.transaction_date <= '$end_date') as balance
-                    FROM accounts a
-                    WHERE a.account_type = 'Equity' 
-                    AND a.company_id = $company_id
-                    ORDER BY a.account_code
-                ");
+    $equity = $conn->query("
+        SELECT a.account_name, 
+               (SELECT IFNULL(SUM(CASE WHEN je.entry_type = 'credit' THEN je.amount ELSE -je.amount END), 0)
+               FROM journal_entries je
+               JOIN transactions t ON je.transaction_id = t.id
+               WHERE je.account_code = a.account_code
+               AND je.company_id = a.company_id
+               AND t.transaction_date <= '$end_date') as balance
+        FROM accounts a
+        WHERE a.account_type = 'Equity' 
+        AND a.company_id = $company_id
+        ORDER BY a.account_code
+    ");
 
-                $total_equity = 0;
-                while ($data = $equity->fetch_assoc()) {
-                    if ($data['balance'] != 0) {
-                        $sheet->setCellValue("A{$row}", $data['account_name']);
-                        $sheet->setCellValue("B{$row}", (float)$data['balance']);
-                        $total_equity += $data['balance'];
-                        $row++;
-                    }
-                }
+    $total_equity = 0;
+    while ($data = $equity->fetch_assoc()) {
+        if ($data['account_name'] != 'Current Period Earnings') { // We'll add this separately
+            $sheet->setCellValue("A{$row}", $data['account_name']);
+            $sheet->setCellValue("B{$row}", (float)$data['balance']);
+            $total_equity += $data['balance'];
+            $row++;
+        }
+    }
 
-                // Net Income
-                $net_income_result = $conn->query("
-                    SELECT (SELECT IFNULL(SUM(amount), 0) FROM income WHERE company_id = $company_id AND date BETWEEN '$start_date' AND '$end_date') -
-                           (SELECT IFNULL(SUM(amount), 0) FROM expenses WHERE company_id = $company_id AND date BETWEEN '$start_date' AND '$end_date') as net_income
-                ");
-                $net_income = $net_income_result->fetch_assoc()['net_income'] ?? 0;
+    // Add Current Period Earnings (Net Income)
+    $net_income_result = $conn->query("
+        SELECT (SELECT IFNULL(SUM(amount), 0) FROM income WHERE company_id = $company_id AND date BETWEEN '$start_date' AND '$end_date') -
+               (SELECT IFNULL(SUM(amount), 0) FROM expenses WHERE company_id = $company_id AND date BETWEEN '$start_date' AND '$end_date') as net_income
+    ");
+    $net_income = $net_income_result->fetch_assoc()['net_income'] ?? 0;
+    
+    $sheet->setCellValue("A{$row}", "Current Period Earnings");
+    $sheet->setCellValue("B{$row}", (float)$net_income);
+    $total_equity += $net_income;
+    $row++;
 
-                $sheet->setCellValue("A{$row}", "Current Period Earnings");
-                $sheet->setCellValue("B{$row}", (float)$net_income);
-                $row++;
+    $sheet->setCellValue("A{$row}", 'TOTAL EQUITY')->getStyle("A{$row}")->getFont()->setBold(true);
+    $sheet->setCellValue("B{$row}", (float)$total_equity)->getStyle("B{$row}")->getFont()->setBold(true);
+    $sheet->getStyle("B4:B{$row}")->getNumberFormat()->setFormatCode('#,##0.00');
+    $row += 2;
 
-                $sheet->setCellValue("A{$row}", 'TOTAL EQUITY')->getStyle("A{$row}")->getFont()->setBold(true);
-                $sheet->setCellValue("B{$row}", (float)($total_equity + $net_income))->getStyle("B{$row}")->getFont()->setBold(true);
-                $sheet->getStyle("B4:B{$row}")->getNumberFormat()->setFormatCode('#,##0.00');
-                $row += 2;
+    // Total Liabilities & Equity
+    $sheet->setCellValue("A{$row}", 'TOTAL LIABILITIES & EQUITY')->getStyle("A{$row}")->getFont()->setBold(true);
+    $sheet->setCellValue("B{$row}", (float)($total_liabilities + $total_equity))->getStyle("B{$row}")->getFont()->setBold(true);
+    $sheet->getStyle("B{$row}")->getNumberFormat()->setFormatCode('#,##0.00');
 
-                // Total Liabilities & Equity
-                $sheet->setCellValue("A{$row}", 'TOTAL LIABILITIES & EQUITY')->getStyle("A{$row}")->getFont()->setBold(true);
-                $sheet->setCellValue("B{$row}", (float)($total_liabilities + $total_equity + $net_income))->getStyle("B{$row}")->getFont()->setBold(true);
-                $sheet->getStyle("B{$row}")->getNumberFormat()->setFormatCode('#,##0.00');
+    // Auto-size columns
+    foreach (range('A', 'B') as $col) {
+        $sheet->getColumnDimension($col)->setAutoSize(true);
+    }
 
-                // Auto-size columns
-                foreach (range('A', 'B') as $col) {
-                    $sheet->getColumnDimension($col)->setAutoSize(true);
-                }
-
-                $filename = "balance_sheet_{$date_range}.xlsx";
-                break;
+    $filename = "balance_sheet_{$date_range}.xlsx";
+    break;
 
             case 'profit_loss':
                 $sheet = $spreadsheet->getActiveSheet();
